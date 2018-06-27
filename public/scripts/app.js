@@ -23,6 +23,8 @@ $(document).ready(function() {
     }).then(function(response) {
       if (response === true) {
         $(".loginform").dialog("close");
+        $("#signup").css("display", "none");
+        $("#login").css("display", "none");
       } else {
         window.alert("Invalid Login");
       }
