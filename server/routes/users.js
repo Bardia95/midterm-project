@@ -41,12 +41,12 @@ module.exports = knex => {
     const title = req.body.title;
     const subject = req.body.subject;
     const description = req.body.description;
-
-    // check if email exists in database
+    console.log('start send');
     knex("posts")
       .insert({ type: `'${type}'`, subject: `'${subject}'`, title: `'${title}'`, description: `'${description}'`, url: `'${URL}'` })
-      .then(function(result) {
+      .returning('*').then(result => {
         console.log(result);
+        res.send(true);
      });
   });
   return router;
