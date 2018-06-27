@@ -8,6 +8,8 @@ const express     = require("express");
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
+const path        = require('path');
+
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
@@ -25,23 +27,20 @@ app.use(morgan('dev'));
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
-app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/styles", sass({
-  src: __dirname + "/styles",
-  dest: __dirname + "/public/styles",
+app.use(sass({
+  src: path.join(__dirname, '../styles'),
+  dest: path.join(__dirname, '../public'),
   debug: true,
-  outputStyle: 'expanded'
+  outputStyle: 'compressed',
 }));
-app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
 // Home page
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.use(express.static(path.join(__dirname, '../public/')));
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
