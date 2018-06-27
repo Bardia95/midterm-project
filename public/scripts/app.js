@@ -1,22 +1,27 @@
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
-    }
-  });;
-});
+$(document).ready(function() {
+  $("#login").on("click", function() {
+    // make popup form
+    console.log("showing login form");
 
- $(document).ready(function() {
-    $('input#input_text, textarea#textarea2').characterCounter();
-    $('input.autocomplete').autocomplete({
-      data: {
-        "Apple": null,
-        "Microsoft": null,
-        "Google": 'https://placehold.it/250x250'
-      },
-    });
+    $(".loginform").dialog("open");
   });
 
+  $(".loginform").dialog({
+    autoOpen: false,
+    modal: true
+  });
+  $(".loginform form").on("submit", function(event) {
+    event.preventDefault();
+    const formSubmissionData = $(event.target);
+    const email = formSubmissionData.children("input#email").val();
+    const password = formSubmissionData.children("input#password").val();
+
+    $.ajax({
+      url: "/login",
+      type: "POST",
+      data: { email: email, password: password }
+    }).then(function() {
+      console.log("from then");
+    });
+  });
+});
