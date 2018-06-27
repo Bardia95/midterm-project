@@ -1,0 +1,97 @@
+$red: #FC4444;
+$blue1: #3FEEE6;
+$blue2: #55BCC9;
+$blue3: #97CAEF;
+$blue4: #CAFAFE;
+
+body {
+  background-color: $red;
+  font-family: 'Roboto', sans-serif;
+
+}
+/* The navigation bar */
+nav {
+  overflow: hidden;
+  background-color: $blue1;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+  }
+  .nav-btn {
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+    &:hover {
+      background: $red;
+      -webkit-border-radius: 10px;
+              border-radius: 10px;
+    }
+  }
+  .logo {
+    float: left;
+    font-weight: bold;
+    font-size: 2em;
+  }
+}
+
+main {
+  padding-top: 50px;
+  margin: auto;
+}
+
+.new-resource {
+  border-radius: 15px;
+  background: $blue3;
+  width: 50%;
+  overflow: auto;
+  color: black;
+  form {
+    margin: auto;
+    text-align: center;
+  }
+  #type {
+
+  }
+  #subject {
+
+  }
+  textarea {
+    min-width: 90%;
+    -webkit-border-radius: 10px;
+            border-radius: 10px;
+    padding-left: 5px;
+    padding-top: 5px;
+  }
+  #resource-submit {
+    text-align: center;
+    margin-bottom: 10px;
+    margin-left: 27px;
+    background-color: $red;
+    color: $blue3;
+    height: 25px;
+    width: 80px;
+    border: 0px;
+    cursor: pointer;
+    margin-top: 10px;
+    -webkit-border-radius: 10px;
+            border-radius: 10px;
+    &:hover {
+      -webkit-border-radius: 10px;
+              border-radius: 10px;
+      background-color: $blue1;
+      color: $red;
+    }
+
+  }
+ }
+
+
+
+
