@@ -1,9 +1,14 @@
 $(document).ready(function() {
   // hides the signup and login buttons
-  if (document.cookie.length > 0) {
-    $("#signup").css("display", "none");
-    $("#login").css("display", "none");
-  }
+  if (!document.cookie) {
+    $("#signup").css("display", "block");
+    $("#login").css("display", "block");
+    $("#logout").css("display", "none");
+    $("#newpost").css("display", "none");
+  } else if (document.cookie) {
+    $("#logout").css("display", "block");
+    $("#newpost").css("display", "block");
+  };
 
   // make login form
   $("#login").on("click", function() {
@@ -78,8 +83,8 @@ $(document).ready(function() {
     event.preventDefault();
     const formSubmissionData = $(event.target);
     const URL = formSubmissionData.children("input#URL").val();
-    const type = formSubmissionData.children("input#type").val();
-    const subject = formSubmissionData.children("input#subject").val();
+    const type = formSubmissionData.children("input[name='type']:checked").val();
+    const subject = formSubmissionData.children("input[name='subject']:checked").val();
     const description = formSubmissionData.children("input#description").val();
     const title = formSubmissionData.children("input#title").val();
     console.log("form submission", event);

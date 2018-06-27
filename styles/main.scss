@@ -108,8 +108,8 @@ main {
    #comment-submit {
     text-align: center;
     margin-bottom: 10px;
-    background-color: $red;
-    color: $blue1;
+    background-color: $blue1;
+    color: $red;
     height: 25px;
     width: 80px;
     border: 0px;
@@ -120,8 +120,8 @@ main {
     &:hover {
       -webkit-border-radius: 10px;
               border-radius: 10px;
-      background-color: $blue1;
-      color: $red;
+      background-color: $red;
+      color: $blue1;
     }
   }
   textarea {

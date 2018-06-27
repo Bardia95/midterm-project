@@ -20,17 +20,17 @@
 <header>
   <nav class="navbar">
     <a href="#" class="logo">DevStash</a>
-    <a href="#" id="newpost" class="nav-btn">New Post</a>
-    <a href="#" id="logout" class="nav-btn">Log Out</a>
-    <a href="#" id="login" class="nav-btn">Log In</a>
-    <a href="#" id="signup" class="nav-btn">Sign Up</a>
+    <a href="#" id="newpost" class="nav-btn" style="display:none">New Post</a>
+    <a href="#" id="logout" class="nav-btn" style="display:none">Log Out</a>
+    <a href="#" id="login" class="nav-btn" style="display:none">Log In</a>
+    <a href="#" id="signup" class="nav-btn" style="display:none">Sign Up</a>
   </nav>
 </header>
 
 <body>
   <main>
 
-    <section class="new-resource">
+    <section class="new-resource" style="display:none;">
       <h2>New Resource</h2>
       <form action="/resource" method="POST" id="resource-form">
         <input type="text" id="title" placeholder="Title" name="title">
@@ -81,7 +81,7 @@
       </article>
     </section>
   </main>
-  <div id="loginform" style="background-color: lightblue;">
+  <div id="loginform" style="background-color: lightblue; display: none">
     <form action="/login" method="post">
       <label for="email">E-Mail</label>
       <input id="email" type="email" name="email">
@@ -90,7 +90,7 @@
       <input type="submit" value="Login">
     </form>
   </div>
-  <div id="signupform" style="background-color: lightpink;">
+  <div id="signupform" style="background-color: lightpink; display: none">
     <form action="/register" method="post">
       <label for="email">E-Mail</label>
       <input id="email" type="email" name="email">
