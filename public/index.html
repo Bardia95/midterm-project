@@ -1,210 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <title>LearnStash - Home</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-  <link rel="stylesheet" href="main.css" type="text/css" />
+<link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+<link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+<link rel="stylesheet" href="main.css" type="text/css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+  crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
 
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-  <script type="text/javascript" src="/scripts/moment.min.js"></script>
 
-</head>
+<script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="/scripts/app.js"></script>
+<script type="text/javascript" src="/scripts/moment.min.js"></script>
+
 
 <header>
-  <div class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper ">
-        <a href="#" class="brand-logo">LearnStash</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li>
-            <a href="#" class="btn" id="newpost">New Post</a>
-          </li>
-          <li>
-            <a href="#" class="btn" id="logout">Log Out</a>
-          </li>
-          <li>
-            <a href="#" class="btn" id="login">Log In</a>
-          </li>
-          <li>
-            <a href="badges.html" class="btn" id="signup">Sign Up</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
+  <nav class="navbar">
+    <a href="#" class="logo">LearnStash</a>
+    <a href="#" id="newpost" class="nav-btn">New Post</a>
+    <a href="#" id="logout" class="nav-btn">Log Out</a>
+    <a href="#" id="login" class="nav-btn">Log In</a>
+    <a href="#" id="signup" class="nav-btn">Sign Up</a>
+  </nav>
 </header>
 
 <body>
   <main>
+
     <section class="new-resource">
       <h2>New Resource</h2>
       <form action="/post/" method="POST" id="resource-form">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="URL" type="text">
-            <!--             <label for="URL">URL</label>
- -->
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input type="text" id="autocomplete-input" class="autocomplete">
-            <!--             <label for="autocomplete-input">Subject</label>
- -->
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input type="text" id="autocomplete-input" class="autocomplete">
-            <!--             <label for="autocomplete-input">Type</label>
- -->
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <textarea id="description" class="materialize-textarea" data-length="140"></textarea>
-            <!--             <label for="description">Description</label>
- -->
-          </div>
-        </div>
-        <div class="row">
-          <input type="submit" value="Submit" id="resource-submit" class="btn">
-          <span class="counter"></span>
-        </div>
+        <input id="URL" type="text" placeholder="https://coursera.org/">
+        <input type="text" id="type" placeholder="Type of resource">
+        <input type="text" id="subject" placeholder="Subject">
+        <textarea id="description" class="materialize-textarea" data-length="140"></textarea>
+        <input type="submit" value="Submit" id="resource-submit" class="btn">
+        <span class="counter"></span>
       </form>
-      <div id="submiterrors"></div>
     </section>
 
     <section class="container">
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
+      <article class='post'>
+        <header>
+          <h2>post.title</h1>
+        </header>
+        <footer>
+          <p>post.description</p>
+          <div class='timeposted'>
+            <p>post.date</p>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
+          <div class='icons'>
+            <i class='fas fa-chevron-up'></i>
+            <i class='fas fa-chevron-down'></i>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
+        </footer>
+        <aside>
+          <div class="comments">
+            <p>Comment 1</p>
+            <p>user.username</p>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-        </div>
-      </div>
+          <form action="/post/comment" action="POST" id="comments-form">
+            <textarea placeholder="Comment"></textarea>
+            <input type="submit">
+          </form>
+        </aside>
+      </article>
     </section>
   </main>
   <div class="loginform" style="background-color: lightblue;">

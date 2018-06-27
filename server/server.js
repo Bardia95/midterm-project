@@ -6,8 +6,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
 
+<<<<<<< HEAD
 const app = express();
 const path = require("path");
+=======
+const PORT        = process.env.PORT || 8080;
+const ENV         = process.env.ENV || "development";
+const express     = require("express");
+const bodyParser  = require("body-parser");
+const sassMiddleware      = require("node-sass-middleware");
+const app         = express();
+const path        = require('path');
+>>>>>>> master
 
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
@@ -26,20 +36,24 @@ app.use(morgan("dev"));
 app.use(knexLogger(knex));
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  sass({
-    src: path.join(__dirname, "../styles"),
-    dest: path.join(__dirname, "../public"),
-    debug: true,
-    outputStyle: "compressed"
-  })
-);
+
+
+console.log(path.join(__dirname, '../styles'))
+console.log(path.join(__dirname, '../public'))
+app.use(sassMiddleware({
+  src: path.join(__dirname, '../styles'),
+  dest: path.join(__dirname, '../public'),
+  debug: true,
+  outputStyle: 'compressed',
+}));
+app.use(express.static(path.join(__dirname, '../public/')));
+
 
 // Mount all resource routes
 app.use("/", usersRoutes(knex));
 
 // Home page
-app.use(express.static(path.join(__dirname, "../public/")));
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
