@@ -6,7 +6,7 @@ const PORT        = process.env.PORT || 8080;
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
 const bodyParser  = require("body-parser");
-const sass        = require("node-sass-middleware");
+const sassMiddleware      = require("node-sass-middleware");
 const app         = express();
 const path        = require('path');
 
@@ -28,18 +28,21 @@ app.use(morgan('dev'));
 app.use(knexLogger(knex));
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(sass({
+console.log(path.join(__dirname, '../styles'))
+console.log(path.join(__dirname, '../public'))
+app.use(sassMiddleware({
   src: path.join(__dirname, '../styles'),
   dest: path.join(__dirname, '../public'),
   debug: true,
   outputStyle: 'compressed',
 }));
+app.use(express.static(path.join(__dirname, '../public/')));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
 // Home page
-app.use(express.static(path.join(__dirname, '../public/')));
+
 
 
 app.listen(PORT, () => {

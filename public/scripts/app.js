@@ -8,15 +8,3 @@ $(() => {
     }
   });;
 });
-
- $(document).ready(function() {
-    $('input#input_text, textarea#textarea2').characterCounter();
-    $('input.autocomplete').autocomplete({
-      data: {
-        "Apple": null,
-        "Microsoft": null,
-        "Google": 'https://placehold.it/250x250'
-      },
-    });
-  });
-
