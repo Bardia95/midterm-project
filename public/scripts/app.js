@@ -31,8 +31,7 @@ $(document).ready(function() {
       if (response === true) {
         $("#loginform").dialog("close");
         document.cookie = "loggedin";
-        $("#signup").css("display", "none");
-        $("#login").css("display", "none");
+        window.location.reload();
       } else {
         window.alert("Invalid Login");
       }
@@ -61,8 +60,7 @@ $(document).ready(function() {
       if (response === true) {
         $("#signupform").dialog("close");
         document.cookie = "loggedin";
-        $("#signup").css("display", "none");
-        $("#login").css("display", "none");
+        window.location.reload();
       } else {
         window.alert("Email Or Username Already Exists");
       }
@@ -108,4 +106,6 @@ $(document).ready(function() {
       }
     });
   });
+
+
 });
