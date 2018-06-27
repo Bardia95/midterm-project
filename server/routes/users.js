@@ -62,31 +62,26 @@ module.exports = knex => {
       });
   });
 
+  router.post("/resource", (req, res) => {
+    const type = req.body.type;
+    const URL = req.body.link;
+    const title = req.body.title;
+    const subject = req.body.subject;
+    const description = req.body.description;
+    console.log("start send");
+    knex("posts")
+      .insert({
+        type: `'${type}'`,
+        subject: `'${subject}'`,
+        title: `'${title}'`,
+        description: `'${description}'`,
+        url: `'${URL}'`
+      })
+      .returning("*")
+      .then(result => {
+        console.log(result);
+        res.send(true);
+      });
+  });
   return router;
 };
-
-// // route to registration
-// router.post("/register", (req, res) => {
-//   const email = req.body.email;
-//   const password = bcrypt.hashSync(req.body.password, 10);
-//   const username = req.body.username;
-//   // check if email already exists in database
-//   knex("users")
-//   .where({ email: email })
-//   .then(function(result) {
-//     if (result || result[0]) {
-//       console.log("email already exists");
-//       res.send(false);
-//       return;
-//     }
-//   // check if username already exists in database
-//   knex("users")
-//   .where({ username: username })
-//   .then(function(result) {
-//     if (result || result[0]) {
-//       console.log("username already exists");
-//       res.send(false);
-//       return;
-//     }
-//   // insert into database
-// });
