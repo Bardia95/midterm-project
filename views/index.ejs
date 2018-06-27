@@ -1,17 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home Page</title>
+    <title>LearnStash - Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="main.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/materialize.min.css" type="text/css"  media="screen,projection"/>
+
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/moment.min.js"></script>
+
   </head>
 
+  <header>
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper ">
+          <a href="#" class="brand-logo">LearnStash</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <% //if (user) { -%>
+              <li><a href="#" class="btn">New Post</a></li>
+              <li><a href="#" class="btn">Log Out</a></li>
+<!--               <li><a href="#"></a><%// user.username%></li>
+ -->            <% //} else { -%>
+              <li><a href="sass.html" class="btn">Log In</a></li>
+              <li><a href="badges.html" class="btn">Sign Up</a></li>
+            <% //} -%>
+          </ul>
+        </div>
+      </nav>
+  </div>
+  </header>
   <body>
-    <h1>Hello World!</h1>
+    <main>
+      <section class="new-resource">
+        <h2>New Resource</h2>
+        <form action="/post/" method="POST" id="resource-form">
+          <input type="text" placeholder="https://">
+          <input type="text" placeholder="Subject">
+          <select name="types" id="type-select">
+            <option value="tutorial">Tutorial</option>
+            <option value="interview">Interview</option>
+            <option value="blog">Blog</option>
+            <option value="book">Book</option>
+            <option value="podcast">Podcast</option>
+            <option value="course">Course</option>
+          </select>
+          <textarea name="text" placeholder="Description"></textarea>
+          <input type="submit" value="Resource" id="resource-submit">
+          <span class="counter"></span>
+        </form>
+        <div id="submiterrors"></div>
+      </section>
+      <section class="container">
+      </section>
+    </main>
   </body>
 </html>
