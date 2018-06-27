@@ -20,8 +20,12 @@ $(document).ready(function() {
       url: "/login",
       type: "POST",
       data: { email: email, password: password }
-    }).then(function() {
-      console.log("from then");
+    }).then(function(response) {
+      if (response === true) {
+        $(".loginform").dialog("close");
+      } else {
+        window.alert("Invalid Login");
+      }
     });
   });
 });

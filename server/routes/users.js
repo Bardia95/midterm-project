@@ -11,15 +11,20 @@ module.exports = knex => {
       .where({ email: email })
       .select("password")
       .then(function(result) {
+        console.log(result);
+
         if (!result || !result[0]) {
           console.log("invalid username");
+          res.send(false);
           return;
         }
         var pass = result[0].password;
         if (password === pass) {
           console.log("Logged in");
+          res.send(true);
         } else {
           console.log("Wrong Password");
+          res.send(false);
         }
       })
       .catch(function(error) {
