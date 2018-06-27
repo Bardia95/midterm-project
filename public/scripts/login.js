@@ -1,22 +1,10 @@
-$(document).ready(function() {
-  if (document.cookie.length > 0) {
-    $("#signup").css("display", "none");
-    $("#login").css("display", "none");
-  }
-
-  // make popup form
-  $("#login").on("click", function() {
-    $(".loginform").dialog("open");
-  });
-  $(".loginform").dialog({
-    autoOpen: false,
-    modal: true
-  });
+module.exports = () => {
   $(".loginform form").on("submit", function(event) {
     event.preventDefault();
     const formSubmissionData = $(event.target);
     const email = formSubmissionData.children("input#email").val();
     const password = formSubmissionData.children("input#password").val();
+
     $.ajax({
       url: "/login",
       type: "POST",
@@ -24,7 +12,6 @@ $(document).ready(function() {
     }).then(function(response) {
       if (response === true) {
         $(".loginform").dialog("close");
-        document.cookie = "loggedin";
         $("#signup").css("display", "none");
         $("#login").css("display", "none");
       } else {
@@ -32,4 +19,4 @@ $(document).ready(function() {
       }
     });
   });
-});
+};
