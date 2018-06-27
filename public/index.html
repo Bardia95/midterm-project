@@ -70,13 +70,24 @@
       </article>
     </section>
   </main>
-  <div class="loginform" style="background-color: lightblue;">
+  <div id="loginform" style="background-color: lightblue;">
     <form action="/login" method="post">
       <label for="email">E-Mail</label>
       <input id="email" type="email" name="email">
       <label for="password">Password</label>
       <input id="password" type="password" name="password">
       <input type="submit" value="Login">
+    </form>
+  </div>
+  <div id="signupform" style="background-color: lightpink;">
+    <form action="/register" method="post">
+      <label for="email">E-Mail</label>
+      <input id="email" type="email" name="email">
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password">
+      <label for="username">Username</label>
+      <input id="username" type="text" name="username">
+      <input type="submit" value="Register">
     </form>
   </div>
 </body>
