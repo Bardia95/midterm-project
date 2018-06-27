@@ -14,8 +14,18 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require("morgan");
 const knexLogger = require("knex-logger");
 
+const cookieSession = require("cookie-session");
+const bcrypt = require("bcryptjs");
+
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["user_id"]
+  })
+);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
