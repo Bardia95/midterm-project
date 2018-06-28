@@ -83,34 +83,29 @@ module.exports = knex => {
         date_posted: `'${moment(date).format('l')}'`,
         user_id: uId
       }).then(result => {
-        console.log(knex("posts")
-                 .select('id')
-                 .where({date_posted: `'${moment(date).format('l')}'`})
-                 .limit(1));
-        res.send(knex("posts")
-                 .select('id')
-                 .where({date_posted: `'${moment(date).format('l')}'`})
-                 .limit(1));
-
-      });
-  });
-
-  router.post("/posts/:id/comment", (req, res) => {
-    const content = req.body.content;
-    const uId = parseInt(req.session["user_id"]);
-    knex("comments")
-      .insert({
-        user_id: uId
-      }).then(result => {
-        knex("comments_posts")
-        .insert({
-          comment_id: 1,
-          post_id: 1
-        })
-      }).then(result => {
         res.send(true);
       });
   });
+
+  // router.post("/posts/:id/comment", (req, res) => {
+  //   const content = req.body.content;
+  //   const uId = parseInt(req.session["user_id"]);
+  //   const comment_id =
+  //   const
+  //   knex("comments")
+  //     .insert({
+  //       content: content,
+  //       user_id: uId
+  //     }).then(result => {
+  //       knex("comments_posts")
+  //       .insert({
+  //         comment_id: knex('comments').select(',
+  //         post_id: 1
+  //       })
+  //     }).then(result => {
+  //       res.send(true);
+  //     });
+  // });
 
   // route to log out
   router.post("/logout", (req, res) => {
