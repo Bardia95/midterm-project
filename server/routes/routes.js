@@ -38,6 +38,7 @@ module.exports = knex => {
 
   router.post("/register", async (req, res) => {
     const email = req.body.email;
+    console.log(req.body);
     const password = bcrypt.hashSync(req.body.password, 10);
     const username = req.body.username;
     // check if email already exists in database
@@ -64,15 +65,14 @@ module.exports = knex => {
       });
   });
 
-  router.post("/resource", (req, res) => {
+  router.post("/post", (req, res) => {
     const type = req.body.type;
     const URL = req.body.link;
     const title = req.body.title;
     const subject = req.body.subject;
     const description = req.body.description;
-    let date = parseInt(req.body.date);
-    let uId = parseInt(req.session["user_id"]);
-    console.log(moment(date).format('l'));
+    const date = parseInt(req.body.date);
+    const uId = parseInt(req.session["user_id"]);
     knex("posts")
       .insert({
         type: `'${type}'`,
@@ -83,7 +83,31 @@ module.exports = knex => {
         date_posted: `'${moment(date).format('l')}'`,
         user_id: uId
       }).then(result => {
-        console.log(result);
+        console.log(knex("posts")
+                 .select('id')
+                 .where({date_posted: `'${moment(date).format('l')}'`})
+                 .limit(1));
+        res.send(knex("posts")
+                 .select('id')
+                 .where({date_posted: `'${moment(date).format('l')}'`})
+                 .limit(1));
+
+      });
+  });
+
+  router.post("/posts/:id/comment", (req, res) => {
+    const content = req.body.content;
+    const uId = parseInt(req.session["user_id"]);
+    knex("comments")
+      .insert({
+        user_id: uId
+      }).then(result => {
+        knex("comments_posts")
+        .insert({
+          comment_id: 1,
+          post_id: 1
+        })
+      }).then(result => {
         res.send(true);
       });
   });

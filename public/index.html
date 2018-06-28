@@ -16,7 +16,18 @@
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript" src="/vendor/jquery.ui.dialog-clickoutside.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/scripts/login.js"></script>
+  <script type="text/javascript" src="/scripts/profile.js"></script>
+  <script type="text/javascript" src="/scripts/comments.js"></script>
+  <script type="text/javascript" src="/scripts/logout.js"></script>
+  <script type="text/javascript" src="/scripts/signup.js"></script>
+  <script type="text/javascript" src="/scripts/profile.js"></script>
+  <script type="text/javascript" src="/scripts/togglenavbuttons.js"></script>
+  <script type="text/javascript" src="/scripts/newpost.js"></script>
+
+
+
+
   <script type="text/javascript" src="/scripts/moment.min.js"></script>
 
 </head>
@@ -54,16 +65,16 @@
           <p>Comment 1</p>
           <p>user.username</p>
         </div>
-        <form action="/post/comment" action="POST" id="comments-form">
+        <form action="/post/:id/comment" action="POST" class="comment-form">
           <textarea placeholder="Comment"></textarea>
-          <input type="submit" id="comment-submit">
+          <input type="submit" class="comment-submit">
         </form>
       </aside>
     </article>
   </main>
-  <section class="new-resource" style="display:none;">
-    <h2>New Resource</h2>
-    <form action="/resource" method="POST" id="resource-form">
+  <section class="new-post" style="display:none;">
+    <h2>New Post</h2>
+    <form action="/posts" method="POST" class="post-form">
       <input type="text" id="title" placeholder="Title" name="title">
       <input id="URL" type="text" placeholder="https://coursera.org/" name="url">
       <br>
@@ -93,8 +104,8 @@
       <br>
       <input type="radio" class="subject" name="subject" value="virtual reality"> Virtual Reailty
       <br>
-      <textarea id="description" placeholder="Description" name="description"></textarea>
-      <input type="submit" value="Submit" id="resource-submit">
+      <textarea class="description" placeholder="Description" name="description"></textarea>
+      <input type="submit" value="Submit" class="post-submit">
     </form>
   </section>
   <div id="loginform" style="background-color: lightblue; display: none">
