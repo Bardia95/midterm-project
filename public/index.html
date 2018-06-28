@@ -28,75 +28,75 @@
       <a href="#" class="logo">DevStash</a>
       <a href="#" id="newpost" class="nav-btn" style="display:none">New Post</a>
       <a href="#" id="logout" class="nav-btn" style="display:none">Log Out</a>
-      <a href="#" id="login" class="nav-btn">Log In</a>
-      <a href="#" id="signup" class="nav-btn">Sign Up</a>
+      <a href="#" id="login" class="nav-btn" style="display:none">Log In</a>
+      <a href="#" id="signup" class="nav-btn" style="display:none">Sign Up</a>
       <a href="#" id="my-profile" class="nav-btn" style="display:none">My Profile</a>
     </nav>
   </header>
   <main>
-      <article class='post'>
-        <header>
-          <h2>post.title</h1>
-        </header>
-        <footer>
-          <p>post.description</p>
-          <div class='timeposted'>
-            <p>post.date</p>
-          </div>
-          <div class='icons'>
-            <i class='fas fa-chevron-up'></i>
-              <p>Upvotes - Downvotes</p>
-            <i class='fas fa-chevron-down'></i>
-          </div>
-        </footer>
-        <aside>
-          <div class="comments">
-            <p>Comment 1</p>
-            <p>user.username</p>
-          </div>
-          <form action="/post/comment" action="POST" id="comments-form">
-            <textarea placeholder="Comment"></textarea>
-            <input type="submit" id="comment-submit">
-          </form>
-        </aside>
-      </article>
+    <article class='post'>
+      <header>
+        <h2>post.title</h1>
+      </header>
+      <footer>
+        <p>post.description</p>
+        <div class='timeposted'>
+          <p>post.date</p>
+        </div>
+        <div class='icons'>
+          <i class='fas fa-chevron-up'></i>
+          <p>Upvotes - Downvotes</p>
+          <i class='fas fa-chevron-down'></i>
+        </div>
+      </footer>
+      <aside>
+        <div class="comments">
+          <p>Comment 1</p>
+          <p>user.username</p>
+        </div>
+        <form action="/post/comment" action="POST" id="comments-form">
+          <textarea placeholder="Comment"></textarea>
+          <input type="submit" id="comment-submit">
+        </form>
+      </aside>
+    </article>
   </main>
   <section class="new-resource" style="display:none;">
-      <h2>New Resource</h2>
-      <form action="/resource" method="POST" id="resource-form">
-        <input type="text" id="title" placeholder="Title" name="title">
-        <input id="URL" type="text" placeholder="https://coursera.org/" name="url">
-        <br>
-        <strong>Type</strong>
-        <br>
-        <input type="radio" class="type" name="type" value="tutorial"> Tutorial
-        <br>
-        <input type="radio" class="type" name="type" value="interview"> Interview
-        <br>
-        <input type="radio" class="type" name="type" value="blog"> Blog
-        <br>
-        <input type="radio" class="type" name="type" value="documentation"> Documentation
-        <br>
-        <input type="radio" class="type" name="type" value="course"> Course
-        <br>
-        <input type="radio" class="type" name="type" value="book"> Book
-        <br>
-        <strong>Subject</strong>
-        <br>
-        <input type="radio" class="subject" name="subject" value="web development"> Web Development
-        <br>
-        <input type="radio" class="subject" name="subject" value="mobile development"> Mobile Development
-        <br>
-        <input type="radio" class="subject" name="subject" value="machine learning"> Machine Learning
-        <br>
-        <input type="radio" class="subject" name="subject" value="blockchain"> Augmented Reality
-        <br>
-        <input type="radio" class="subject" name="subject" value="virtual reality"> Virtual Reailty
-        <br>
-        <textarea id="description" placeholder="Description" name="description"></textarea>
-        <input type="submit" value="Submit" id="resource-submit">
-      </form>
-    </section>
+    <h2>New Resource</h2>
+    <form action="/resource" method="POST" id="resource-form">
+      <input type="text" id="title" placeholder="Title" name="title">
+      <input id="URL" type="text" placeholder="https://coursera.org/" name="url">
+      <br>
+      <strong>Type</strong>
+      <br>
+      <input type="radio" class="type" name="type" value="tutorial"> Tutorial
+      <br>
+      <input type="radio" class="type" name="type" value="interview"> Interview
+      <br>
+      <input type="radio" class="type" name="type" value="blog"> Blog
+      <br>
+      <input type="radio" class="type" name="type" value="documentation"> Documentation
+      <br>
+      <input type="radio" class="type" name="type" value="course"> Course
+      <br>
+      <input type="radio" class="type" name="type" value="book"> Book
+      <br>
+      <strong>Subject</strong>
+      <br>
+      <input type="radio" class="subject" name="subject" value="web development"> Web Development
+      <br>
+      <input type="radio" class="subject" name="subject" value="mobile development"> Mobile Development
+      <br>
+      <input type="radio" class="subject" name="subject" value="machine learning"> Machine Learning
+      <br>
+      <input type="radio" class="subject" name="subject" value="blockchain"> Augmented Reality
+      <br>
+      <input type="radio" class="subject" name="subject" value="virtual reality"> Virtual Reailty
+      <br>
+      <textarea id="description" placeholder="Description" name="description"></textarea>
+      <input type="submit" value="Submit" id="resource-submit">
+    </form>
+  </section>
   <div id="loginform" style="background-color: lightblue; display: none">
     <form action="/login" method="post">
       <label for="email">E-Mail</label>
