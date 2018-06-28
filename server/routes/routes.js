@@ -138,6 +138,7 @@ module.exports = knex => {
     }
 
     Promise.all(promises).then(result => {
+      // send the post object with all like counts updated
       knex("posts").then(result => {
         res.send(result);
       });
