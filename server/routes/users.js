@@ -4,6 +4,8 @@ const router = express.Router();
 
 const bcrypt = require("bcryptjs");
 
+const moment = require("moment");
+
 module.exports = knex => {
   // route to login
   router.post("/login", (req, res) => {
@@ -68,17 +70,19 @@ module.exports = knex => {
     const title = req.body.title;
     const subject = req.body.subject;
     const description = req.body.description;
-    console.log("start send");
+    let date = parseInt(req.body.date);
+    let uId = parseInt(req.session["user_id"]);
+    console.log(moment(date).format('l'));
     knex("posts")
       .insert({
         type: `'${type}'`,
         subject: `'${subject}'`,
         title: `'${title}'`,
         description: `'${description}'`,
-        url: `'${URL}'`
-      })
-      .returning("*")
-      .then(result => {
+        url: `'${URL}'`,
+        date_posted: `'${moment(date).format('l')}'`,
+        user_id: uId
+      }).then(result => {
         console.log(result);
         res.send(true);
       });
