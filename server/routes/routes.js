@@ -119,18 +119,7 @@ module.exports = knex => {
   // route to render posts
   router.post("/render", async (req, res) => {
     try {
-      let query= knex('posts');
-      if (req.query.user_id) {
-        query = query.whereIn('user_id', req.query.user_id)
-      }
-      const allPosts = await query
-      res.json(allPosts);
-    } catch(err) {
-      res.status(500).send(err)
-    }
-    // send an array of all post objects
-
-    const likesAndDislikes = await knex
+      const likesAndDislikes = await knex
       .select("post_id", "like_or_dislike")
       .count("like_or_dislike")
       .from("like_dislike")
@@ -154,6 +143,12 @@ module.exports = knex => {
         res.send(result);
       });
     });
+    } catch(err) {
+      res.status(500).send(err)
+    }
+    // send an array of all post objects
+
+
   });
 
   router.post("/user", async (req, res) => {
@@ -167,6 +162,16 @@ module.exports = knex => {
       res.status(500).send(err)
     }
   })
+
+
+  // Rob's query code for posts by diff users
+   // let query= knex('posts');
+    // if (req.query.user_id) {
+      //   query = query.whereIn('user_id', req.query.user_id)
+      // }
+      // const allPosts = await query
+
+      // res.json(allPosts);
 
   return router;
   // FUNCTIONS
