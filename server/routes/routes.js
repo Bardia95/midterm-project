@@ -75,10 +75,6 @@ module.exports = knex => {
     const description = req.body.description;
     const date = parseInt(req.body.date);
     const uId = parseInt(req.session["user_id"]);
-<<<<<<< HEAD:server/routes/users.js
-    console.log(moment(date).format("l"));
-=======
->>>>>>> master:server/routes/routes.js
     knex("posts")
       .insert({
         type: `'${type}'`,
@@ -88,13 +84,8 @@ module.exports = knex => {
         url: `'${URL}'`,
         date_posted: `'${moment(date).format("l")}'`,
         user_id: uId
-<<<<<<< HEAD:server/routes/users.js
       })
       .then(result => {
-        console.log(result);
-=======
-      }).then(result => {
->>>>>>> master:server/routes/routes.js
         res.send(true);
       });
   });
