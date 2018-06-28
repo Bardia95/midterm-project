@@ -8,7 +8,7 @@ $(document).ready(function() {
   } else if (document.cookie) {
     $("#logout").css("display", "block");
     $("#newpost").css("display", "block");
-  };
+  }
 
   // make login form
   $("#login").on("click", function() {
@@ -66,13 +66,11 @@ $(document).ready(function() {
       }
     });
   });
+  // new post form
   $("#newpost").on("click", function() {
-    // new post form
     console.log("showing post form");
-
     $(".new-resource").dialog("open");
   });
-
   $(".new-resource").dialog({
     autoOpen: false,
     modal: true
@@ -107,6 +105,16 @@ $(document).ready(function() {
       }
     });
   });
-
-
+  // logout
+  $("#logout").on("click", function() {
+    document.cookie = ";expires=0";
+    window.location.reload();
+    // delete session cookies from ajax
+    $.ajax({
+      url: "/logout",
+      type: "POST"
+    }).then(result => {
+      console.log("logged out");
+    });
+  });
 });

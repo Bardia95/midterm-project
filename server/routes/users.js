@@ -87,5 +87,11 @@ module.exports = knex => {
         res.send(true);
       });
   });
+
+  // route to log out
+  router.post("/logout", (req, res) => {
+    req.session = null;
+    res.send();
+  });
   return router;
 };
