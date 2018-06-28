@@ -1,5 +1,7 @@
 $(document).ready(function() {
-  console.log("asdfdsf");
+  $('#logo').on('click', function() {
+    renderPosts();
+  })
   renderPosts();
   function renderPosts() {
     $("main").empty();

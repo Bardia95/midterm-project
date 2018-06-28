@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   // logout
   $("#logout").on("click", function() {
     document.cookie = ";expires=0";

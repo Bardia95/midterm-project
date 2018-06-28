@@ -9,12 +9,12 @@ const moment = require("moment");
 module.exports = knex => {
   // route to login
   router.post("/login", (req, res) => {
-    const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
 
-    // check if email exists in database
+    // check if username exists in database
     knex("users")
-      .where({ email: email })
+      .where({ username: username })
       .then(function(result) {
         if (!result || !result[0]) {
           console.log("invalid username");
@@ -67,6 +67,7 @@ module.exports = knex => {
       });
   });
 
+
   router.post("/post", (req, res) => {
     const type = req.body.type;
     const URL = req.body.link;
@@ -117,9 +118,29 @@ module.exports = knex => {
   });
   // route to render posts
   router.post("/render", async (req, res) => {
-    // send an array of all post objects
-    const allPosts = await knex("posts");
-    res.send(allPosts);
+    try {
+      let query= knex('posts');
+      if (req.query.user_id) {
+        query = query.whereIn('user_id', req.query.user_id)
+      }
+      const allPosts = await query
+      res.json(allPosts);
+    } catch(err) {
+      res.status(500).send(err)
+    }
   });
+
+  router.post("/user", async (req, res) => {
+    try {
+      let username = req.body.username.toString();
+      const userId = await knex('users').select('id')
+                      .where("username","=",username);
+      const ownPosts = await knex('posts').where("user_id","=", userId[0].id);
+      res.json(ownPosts);
+    } catch(err) {
+      res.status(500).send(err)
+    }
+  })
+
   return router;
 };

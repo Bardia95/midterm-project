@@ -22,9 +22,12 @@
   <script type="text/javascript" src="/scripts/logout.js"></script>
   <script type="text/javascript" src="/scripts/signup.js"></script>
   <script type="text/javascript" src="/scripts/profile.js"></script>
-  <script type="text/javascript" src="/scripts/togglenavbuttons.js"></script>
   <script type="text/javascript" src="/scripts/newpost.js"></script>
   <script type="text/javascript" src="/scripts/render.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+
+
+
 
 
 
@@ -37,34 +40,16 @@
 <body>
   <header>
     <nav class="navbar">
-      <a href="#" class="logo">DevStash</a>
-      <a href="#" id="newpost" class="nav-btn" style="display:none">New Post</a>
-      <a href="#" id="logout" class="nav-btn" style="display:none">Log Out</a>
-      <a href="#" id="login" class="nav-btn" style="display:none">Log In</a>
-      <a href="#" id="signup" class="nav-btn" style="display:none">Sign Up</a>
-      <a href="#" id="my-profile" class="nav-btn" style="display:none">My Profile</a>
+      <a href="#" id="logo">DevStash</a>
+      <a href="#" id="newpost" class="nav-btn">New Post</a>
+      <a href="#" id="logout" class="nav-btn">Log Out</a>
+      <a href="#" id="login" class="nav-btn">Log In</a>
+      <a href="#" id="signup" class="nav-btn">Sign Up</a>
+      <a href="#" id="my-profile" class="nav-btn"></a>
     </nav>
   </header>
   <main>
     <!-- ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!! -->
-    <article class='post'>
-      <header>
-        <h2>post.title</h1>
-      </header>
-      <div class="post-description">
-        <p>post.description</p>
-      </div>
-      <footer>
-        <div class='timeposted'>
-          <p>post.date</p>
-        </div>
-        <div class='icons'>
-          <i class='fas fa-chevron-up'></i>
-          <p>2</p>
-          <i class='fas fa-chevron-down'></i>
-        </div>
-      </footer>
-    </article>
 
     <!-- ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!!ARTICLES!!!!!!!! -->
   </main>
@@ -106,8 +91,8 @@
   </section>
   <div id="loginform" style="background-color: lightblue; display: none">
     <form action="/login" method="post">
-      <label for="email">E-Mail</label>
-      <input id="email" type="email" name="email">
+      <label for="username">Username</label>
+      <input id="username" type="text" name="username">
       <label for="password">Password</label>
       <input id="password" type="password" name="password">
       <input type="submit" value="Login">

@@ -1,5 +1,18 @@
 $(document).ready(function() {
-
+  const toggleNav = function() {
+    if (!document.cookie) {
+      $("#signup").css("display", "block");
+      $("#login").css("display", "block");
+      $("#logout").css("display", "none");
+      $("#newpost").css("display", "none");
+    } else if (document.cookie) {
+      $("#logout").css("display", "block");
+      $("#newpost").css("display", "block");
+      $("#signup").css("display", "none");
+      $("#login").css("display", "none");
+      $("#my-profile").css("display", "block");
+    }
+  }
   // signup form
   $("#signup").on("click", function() {
     $("#signupform").dialog("open");
@@ -34,8 +47,9 @@ $(document).ready(function() {
     }).then(function(response) {
       if (response === true) {
         $("#signupform").dialog("close");
-        document.cookie = "loggedin";
-        window.location.reload();
+        document.cookie = username;
+        $("#my-profile").html(document.cookie);
+        toggleNav();
       } else {
         window.alert("Email Or Username Already Exists");
       }
