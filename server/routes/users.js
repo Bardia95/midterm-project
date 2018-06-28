@@ -40,6 +40,8 @@ module.exports = knex => {
     const email = req.body.email;
     const password = bcrypt.hashSync(req.body.password, 10);
     const username = req.body.username;
+    console.log(req.body);
+
     // check if email already exists in database
     const emailResult = await knex("users").where({ email: email });
     if (emailResult[0]) {
@@ -70,9 +72,9 @@ module.exports = knex => {
     const title = req.body.title;
     const subject = req.body.subject;
     const description = req.body.description;
-    let date = parseInt(req.body.date);
-    let uId = parseInt(req.session["user_id"]);
-    console.log(moment(date).format('l'));
+    const date = parseInt(req.body.date);
+    const uId = parseInt(req.session["user_id"]);
+    console.log(moment(date).format("l"));
     knex("posts")
       .insert({
         type: `'${type}'`,
@@ -80,9 +82,10 @@ module.exports = knex => {
         title: `'${title}'`,
         description: `'${description}'`,
         url: `'${URL}'`,
-        date_posted: `'${moment(date).format('l')}'`,
+        date_posted: `'${moment(date).format("l")}'`,
         user_id: uId
-      }).then(result => {
+      })
+      .then(result => {
         console.log(result);
         res.send(true);
       });
@@ -92,6 +95,12 @@ module.exports = knex => {
   router.post("/logout", (req, res) => {
     req.session = null;
     res.send();
+  });
+  // route to render posts
+  router.post("/render", async (req, res) => {
+    // send an array of all post objects
+    const allPosts = await knex("posts");
+    res.send(allPosts);
   });
   return router;
 };

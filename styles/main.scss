@@ -1,13 +1,12 @@
-$red: #FC4444;
-$blue1: #3FEEE6;
-$blue2: #55BCC9;
-$blue3: #97CAEF;
-$blue4: #CAFAFE;
+$red: #fc4444;
+$blue1: #3feee6;
+$blue2: #55bcc9;
+$blue3: #97caef;
+$blue4: #cafafe;
 
 body {
   background-color: $red;
-  font-family: 'Roboto', sans-serif;
-
+  font-family: "Roboto", sans-serif;
 }
 /* The navigation bar */
 nav {
@@ -22,7 +21,6 @@ nav {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-
   }
   .nav-btn {
     float: right;
@@ -31,7 +29,7 @@ nav {
     &:hover {
       background: $red;
       -webkit-border-radius: 10px;
-              border-radius: 10px;
+      border-radius: 10px;
     }
   }
   .logo {
@@ -43,7 +41,32 @@ nav {
 
 main {
   padding-top: 50px;
-  margin: auto;
+  margin: 2em 4em;
+  display: flex;
+  flex-wrap: wrap;
+  article {
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+    header {
+      flex-grow: 1;
+    }
+    .post-description {
+    }
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      .timeposted {
+        margin-left: 1em;
+        align-self: center;
+      }
+      .icons {
+        margin-right: 1em;
+        align-self: center;
+      }
+    }
+  }
 }
 
 .new-resource {
@@ -63,12 +86,12 @@ main {
   textarea {
     min-width: 90%;
     -webkit-border-radius: 10px;
-            border-radius: 10px;
+    border-radius: 10px;
     margin-top: 5px;
   }
   input {
-     -webkit-border-radius: 10px;
-            border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
     margin-top: 5px;
     border: 0px;
     font-size: 1em;
@@ -86,26 +109,24 @@ main {
     cursor: pointer;
     margin-top: 10px;
     -webkit-border-radius: 10px;
-            border-radius: 10px;
+    border-radius: 10px;
     &:hover {
       -webkit-border-radius: 10px;
-              border-radius: 10px;
+      border-radius: 10px;
       background-color: $blue1;
       color: $red;
     }
-
   }
- }
+}
 
-
- .post {
-   text-align: center;
-   height: 300px;
-   width: 300px;
-   background: $blue2;
-   -webkit-border-radius: 10px;
-           border-radius: 10px;
-   #comment-submit {
+.post {
+  text-align: center;
+  height: 300px;
+  width: 300px;
+  background: $blue2;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  #comment-submit {
     text-align: center;
     margin-bottom: 10px;
     background-color: $blue1;
@@ -116,10 +137,10 @@ main {
     cursor: pointer;
     margin-top: 10px;
     -webkit-border-radius: 10px;
-            border-radius: 10px;
+    border-radius: 10px;
     &:hover {
       -webkit-border-radius: 10px;
-              border-radius: 10px;
+      border-radius: 10px;
       background-color: $red;
       color: $blue1;
     }
@@ -127,11 +148,7 @@ main {
   textarea {
     min-width: 90%;
     -webkit-border-radius: 10px;
-            border-radius: 10px;
+    border-radius: 10px;
     margin-top: 5px;
-    }
- }
-
-
-
-
+  }
+}
