@@ -13,6 +13,7 @@
 
 <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="/vendor/jquery.ui.dialog-clickoutside.js"></script>
 <script type="text/javascript" src="/scripts/app.js"></script>
 <script type="text/javascript" src="/scripts/moment.min.js"></script>
 
@@ -34,19 +35,32 @@
       <h2>New Resource</h2>
       <form action="/resource" method="POST" id="resource-form">
         <input type="text" id="title" placeholder="Title" name="title">
-        <input id="URL" type="text" placeholder="https://coursera.org/" name="url"> <br>
-        <strong>Type</strong><br>
-        <input type="radio" class="type" name="type"> Tutorial <br>
-        <input type="radio" class="type" name="type"> Interview <br>
-        <input type="radio" class="type" name="type"> Blog <br>
-        <input type="radio" class="type" name="type"> Documentation <br>
-        <input type="radio" class="type" name="type"> Course <br>
-        <input type="radio" class="type" name="type"> Book <br>
-        <strong>Subject</strong><br>
-        <input type="radio" class="subject" name="subject"> Web Development <br>
-        <input type="radio" class="subject" name="subject"> Mobile Development <br>
-        <input type="radio" class="subject" name="subject"> Machine Learning <br>
-        <input type="radio" class="subject" name="subject"> Augmented Reality <br>
+        <input id="URL" type="text" placeholder="https://coursera.org/" name="url">
+        <br>
+        <strong>Type</strong>
+        <br>
+        <input type="radio" class="type" name="type"> Tutorial
+        <br>
+        <input type="radio" class="type" name="type"> Interview
+        <br>
+        <input type="radio" class="type" name="type"> Blog
+        <br>
+        <input type="radio" class="type" name="type"> Documentation
+        <br>
+        <input type="radio" class="type" name="type"> Course
+        <br>
+        <input type="radio" class="type" name="type"> Book
+        <br>
+        <strong>Subject</strong>
+        <br>
+        <input type="radio" class="subject" name="subject"> Web Development
+        <br>
+        <input type="radio" class="subject" name="subject"> Mobile Development
+        <br>
+        <input type="radio" class="subject" name="subject"> Machine Learning
+        <br>
+        <input type="radio" class="subject" name="subject"> Augmented Reality
+        <br>
         <input type="radio" class="subject" name="subject"> Virtual Reailty
         <textarea id="description" placeholder="Description" data-length="140" name="description"></textarea>
         <input type="submit" value="Submit" id="resource-submit">

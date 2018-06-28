@@ -9,14 +9,26 @@ $(document).ready(function() {
     $("#logout").css("display", "block");
     $("#newpost").css("display", "block");
   }
+  // closes signup/login/post box if clicked outside of element
 
   // make login form
   $("#login").on("click", function() {
     $("#loginform").dialog("open");
   });
+  // sets dialog specifications and closes dialog if clicked outside
   $("#loginform").dialog({
     autoOpen: false,
-    modal: true
+    modal: true,
+    show: {
+      effect: "fade",
+      duration: 150
+    },
+    hide: {
+      effect: "fade",
+      duration: 150
+    },
+    clickOutside: true,
+    clickOutsideTrigger: "#login"
   });
   $("#loginform").on("submit", function(event) {
     event.preventDefault();
@@ -42,9 +54,20 @@ $(document).ready(function() {
   $("#signup").on("click", function() {
     $("#signupform").dialog("open");
   });
+  // sets dialog specifications and closes dialog if clicked outside
   $("#signupform").dialog({
     autoOpen: false,
-    modal: true
+    modal: true,
+    show: {
+      effect: "fade",
+      duration: 150
+    },
+    hide: {
+      effect: "fade",
+      duration: 150
+    },
+    clickOutside: true,
+    clickOutsideTrigger: "#signup"
   });
   $("#signupform").on("submit", function(event) {
     event.preventDefault();
@@ -71,9 +94,20 @@ $(document).ready(function() {
     console.log("showing post form");
     $(".new-resource").dialog("open");
   });
+  // sets dialog specifications and closes dialog if clicked outside
   $(".new-resource").dialog({
     autoOpen: false,
-    modal: true
+    modal: true,
+    show: {
+      effect: "fade",
+      duration: 150
+    },
+    hide: {
+      effect: "fade",
+      duration: 150
+    },
+    clickOutside: true,
+    clickOutsideTrigger: "#newpost"
   });
   $("#resource-form").on("submit", function(event) {
     event.preventDefault();
