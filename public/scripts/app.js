@@ -115,9 +115,9 @@ $(document).ready(function() {
     const URL = formSubmissionData.children("input#URL").val();
     const type = formSubmissionData.children("input[name='type']:checked").val();
     const subject = formSubmissionData.children("input[name='subject']:checked").val();
-    const description = formSubmissionData.children("input#description").val();
+    const description = formSubmissionData.children("textarea#description").val();
     const title = formSubmissionData.children("input#title").val();
-    console.log("form submission", event);
+    let date = new Date().getTime();
 
     $.ajax({
       url: "/resource",
@@ -127,7 +127,8 @@ $(document).ready(function() {
         link: URL,
         type: type,
         subject: subject,
-        description: description
+        description: description,
+        date: date
       }
     }).then(function(response) {
       if (response) {

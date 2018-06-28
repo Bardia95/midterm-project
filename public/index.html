@@ -39,30 +39,31 @@
         <br>
         <strong>Type</strong>
         <br>
-        <input type="radio" class="type" name="type"> Tutorial
+        <input type="radio" class="type" name="type" value="tutorial"> Tutorial
         <br>
-        <input type="radio" class="type" name="type"> Interview
+        <input type="radio" class="type" name="type" value="interview"> Interview
         <br>
-        <input type="radio" class="type" name="type"> Blog
+        <input type="radio" class="type" name="type" value="blog"> Blog
         <br>
-        <input type="radio" class="type" name="type"> Documentation
+        <input type="radio" class="type" name="type" value="documentation"> Documentation
         <br>
-        <input type="radio" class="type" name="type"> Course
+        <input type="radio" class="type" name="type" value="course"> Course
         <br>
-        <input type="radio" class="type" name="type"> Book
+        <input type="radio" class="type" name="type" value="book"> Book
         <br>
         <strong>Subject</strong>
         <br>
-        <input type="radio" class="subject" name="subject"> Web Development
+        <input type="radio" class="subject" name="subject" value="web development"> Web Development
         <br>
-        <input type="radio" class="subject" name="subject"> Mobile Development
+        <input type="radio" class="subject" name="subject" value="mobile development"> Mobile Development
         <br>
-        <input type="radio" class="subject" name="subject"> Machine Learning
+        <input type="radio" class="subject" name="subject" value="machine learning"> Machine Learning
         <br>
-        <input type="radio" class="subject" name="subject"> Augmented Reality
+        <input type="radio" class="subject" name="subject" value="blockchain"> Augmented Reality
         <br>
-        <input type="radio" class="subject" name="subject"> Virtual Reailty
-        <textarea id="description" placeholder="Description" data-length="140" name="description"></textarea>
+        <input type="radio" class="subject" name="subject" value="virtual reality"> Virtual Reailty
+        <br>
+        <textarea id="description" placeholder="Description" name="description"></textarea>
         <input type="submit" value="Submit" id="resource-submit">
       </form>
     </section>
@@ -107,11 +108,11 @@
   <div id="signupform" style="background-color: lightpink; display: none">
     <form action="/register" method="post">
       <label for="email">E-Mail</label>
-      <input id="email" type="email" name="email">
+      <input id="emailsignup" type="email" name="email">
       <label for="password">Password</label>
-      <input id="password" type="password" name="password">
+      <input id="passwordsignup" type="password" name="password">
       <label for="username">Username</label>
-      <input id="username" type="text" name="username">
+      <input id="usernamesignup" type="text" name="username">
       <input type="submit" value="Register">
     </form>
   </div>

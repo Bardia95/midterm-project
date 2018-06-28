@@ -5,6 +5,7 @@ const ENV = process.env.ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
 const sassMiddleware = require("node-sass-middleware");
+const moment = require('moment');
 
 const app = express();
 const path = require("path");
