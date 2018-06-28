@@ -38,6 +38,7 @@ module.exports = knex => {
 
   router.post("/register", async (req, res) => {
     const email = req.body.email;
+    console.log(req.body);
     const password = bcrypt.hashSync(req.body.password, 10);
     const username = req.body.username;
     console.log(req.body);
@@ -66,7 +67,7 @@ module.exports = knex => {
       });
   });
 
-  router.post("/resource", (req, res) => {
+  router.post("/post", (req, res) => {
     const type = req.body.type;
     const URL = req.body.link;
     const title = req.body.title;
@@ -74,7 +75,10 @@ module.exports = knex => {
     const description = req.body.description;
     const date = parseInt(req.body.date);
     const uId = parseInt(req.session["user_id"]);
+<<<<<<< HEAD:server/routes/users.js
     console.log(moment(date).format("l"));
+=======
+>>>>>>> master:server/routes/routes.js
     knex("posts")
       .insert({
         type: `'${type}'`,
@@ -84,12 +88,36 @@ module.exports = knex => {
         url: `'${URL}'`,
         date_posted: `'${moment(date).format("l")}'`,
         user_id: uId
+<<<<<<< HEAD:server/routes/users.js
       })
       .then(result => {
         console.log(result);
+=======
+      }).then(result => {
+>>>>>>> master:server/routes/routes.js
         res.send(true);
       });
   });
+
+  // router.post("/posts/:id/comment", (req, res) => {
+  //   const content = req.body.content;
+  //   const uId = parseInt(req.session["user_id"]);
+  //   const comment_id =
+  //   const
+  //   knex("comments")
+  //     .insert({
+  //       content: content,
+  //       user_id: uId
+  //     }).then(result => {
+  //       knex("comments_posts")
+  //       .insert({
+  //         comment_id: knex('comments').select(',
+  //         post_id: 1
+  //       })
+  //     }).then(result => {
+  //       res.send(true);
+  //     });
+  // });
 
   // route to log out
   router.post("/logout", (req, res) => {

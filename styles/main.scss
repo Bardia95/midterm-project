@@ -69,7 +69,7 @@ main {
   }
 }
 
-.new-resource {
+.new-post {
   h2 {
     text-align: center;
     margin-bottom: -5px;
@@ -98,7 +98,7 @@ main {
     padding-left: 5px;
     height: 20px;
   }
-  #resource-submit {
+  .post-submit {
     text-align: center;
     margin-bottom: 10px;
     background-color: $red;
