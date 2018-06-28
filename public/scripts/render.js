@@ -21,6 +21,7 @@ $(document).ready(function() {
     const postTitle = postObject["title"];
     const postDescription = postObject["description"];
     const postDate = postObject["date_posted"];
+    const likeCount = postObject["likes_count"];
 
     return ` <article class='post' data-postid=${postID}>
     <header>
@@ -35,7 +36,7 @@ $(document).ready(function() {
       </div>
       <div class='icons'>
         <i class='fas fa-chevron-up'></i>
-        <p>2</p>
+        <p>${likeCount}</p>
         <i class='fas fa-chevron-down'></i>
       </div>
     </footer>

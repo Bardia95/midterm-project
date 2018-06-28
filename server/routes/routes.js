@@ -118,8 +118,46 @@ module.exports = knex => {
   // route to render posts
   router.post("/render", async (req, res) => {
     // send an array of all post objects
-    const allPosts = await knex("posts");
-    res.send(allPosts);
+
+    const likesAndDislikes = await knex
+      .select("post_id", "like_or_dislike")
+      .count("like_or_dislike")
+      .from("like_dislike")
+      .groupBy("post_id", "like_or_dislike");
+    const processedCount = processLikesAndDislikes(likesAndDislikes);
+    // update likes count in posts table
+    var promises = [];
+    for (const key in processedCount) {
+      if (processedCount.hasOwnProperty(key)) {
+        promises.push(
+          knex("posts")
+            .where("id", "=", key)
+            .update({ likes_count: processedCount[key] })
+        );
+      }
+    }
+
+    Promise.all(promises).then(result => {
+      knex("posts").then(result => {
+        res.send(result);
+      });
+    });
   });
   return router;
+
+  function processLikesAndDislikes(likesAndDislikesArray) {
+    const processedCount = {};
+    likesAndDislikesArray.forEach(element => {
+      if (processedCount[element["post_id"]] === undefined) {
+        processedCount[element["post_id"]] = 0;
+      }
+      if (element["like_or_dislike"] === true) {
+        processedCount[element["post_id"]] += parseInt(element["count"], 10);
+      }
+      if (element["like_or_dislike"] === false) {
+        processedCount[element["post_id"]] -= parseInt(element["count"], 10);
+      }
+    });
+    return processedCount;
+  }
 };
