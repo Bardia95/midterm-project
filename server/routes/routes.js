@@ -145,7 +145,7 @@ module.exports = knex => {
     });
   });
   return router;
-
+  // FUNCTIONS
   function processLikesAndDislikes(likesAndDislikesArray) {
     const processedCount = {};
     likesAndDislikesArray.forEach(element => {
@@ -161,4 +161,5 @@ module.exports = knex => {
     });
     return processedCount;
   }
+  // FUNCTIONS
 };
