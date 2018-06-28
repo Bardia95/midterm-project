@@ -128,6 +128,32 @@ module.exports = knex => {
     } catch(err) {
       res.status(500).send(err)
     }
+    // send an array of all post objects
+
+    const likesAndDislikes = await knex
+      .select("post_id", "like_or_dislike")
+      .count("like_or_dislike")
+      .from("like_dislike")
+      .groupBy("post_id", "like_or_dislike");
+    const processedCount = processLikesAndDislikes(likesAndDislikes);
+    // update likes count in posts table
+    var promises = [];
+    for (const key in processedCount) {
+      if (processedCount.hasOwnProperty(key)) {
+        promises.push(
+          knex("posts")
+            .where("id", "=", key)
+            .update({ likes_count: processedCount[key] })
+        );
+      }
+    }
+
+    Promise.all(promises).then(result => {
+      // send the post object with all like counts updated
+      knex("posts").then(result => {
+        res.send(result);
+      });
+    });
   });
 
   router.post("/user", async (req, res) => {
@@ -143,4 +169,21 @@ module.exports = knex => {
   })
 
   return router;
+  // FUNCTIONS
+  function processLikesAndDislikes(likesAndDislikesArray) {
+    const processedCount = {};
+    likesAndDislikesArray.forEach(element => {
+      if (processedCount[element["post_id"]] === undefined) {
+        processedCount[element["post_id"]] = 0;
+      }
+      if (element["like_or_dislike"] === true) {
+        processedCount[element["post_id"]] += parseInt(element["count"], 10);
+      }
+      if (element["like_or_dislike"] === false) {
+        processedCount[element["post_id"]] -= parseInt(element["count"], 10);
+      }
+    });
+    return processedCount;
+  }
+  // FUNCTIONS
 };
