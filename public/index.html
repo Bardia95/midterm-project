@@ -1,37 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-<link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-<link rel="stylesheet" href="main.css" type="text/css" />
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-  crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<head>
 
 
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="main.css" type="text/css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
-<script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="/vendor/jquery.ui.dialog-clickoutside.js"></script>
-<script type="text/javascript" src="/scripts/app.js"></script>
-<script type="text/javascript" src="/scripts/moment.min.js"></script>
 
 
-<header>
-  <nav class="navbar">
-    <a href="#" class="logo">DevStash</a>
-    <a href="#" id="newpost" class="nav-btn" style="display:none">New Post</a>
-    <a href="#" id="logout" class="nav-btn" style="display:none">Log Out</a>
-    <a href="#" id="login" class="nav-btn" style="display:none">Log In</a>
-    <a href="#" id="signup" class="nav-btn" style="display:none">Sign Up</a>
-  </nav>
-</header>
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="/vendor/jquery.ui.dialog-clickoutside.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/scripts/moment.min.js"></script>
+
+</head>
+
 
 <body>
+  <header>
+    <nav class="navbar">
+      <a href="#" class="logo">DevStash</a>
+      <a href="#" id="newpost" class="nav-btn" style="display:none">New Post</a>
+      <a href="#" id="logout" class="nav-btn" style="display:none">Log Out</a>
+      <a href="#" id="login" class="nav-btn">Log In</a>
+      <a href="#" id="signup" class="nav-btn">Sign Up</a>
+      <a href="#" id="my-profile" class="nav-btn" style="display:none">My Profile</a>
+    </nav>
+  </header>
   <main>
-
-    <section class="new-resource" style="display:none;">
+      <article class='post'>
+        <header>
+          <h2>post.title</h1>
+        </header>
+        <footer>
+          <p>post.description</p>
+          <div class='timeposted'>
+            <p>post.date</p>
+          </div>
+          <div class='icons'>
+            <i class='fas fa-chevron-up'></i>
+              <p>Upvotes - Downvotes</p>
+            <i class='fas fa-chevron-down'></i>
+          </div>
+        </footer>
+        <aside>
+          <div class="comments">
+            <p>Comment 1</p>
+            <p>user.username</p>
+          </div>
+          <form action="/post/comment" action="POST" id="comments-form">
+            <textarea placeholder="Comment"></textarea>
+            <input type="submit" id="comment-submit">
+          </form>
+        </aside>
+      </article>
+  </main>
+  <section class="new-resource" style="display:none;">
       <h2>New Resource</h2>
       <form action="/resource" method="POST" id="resource-form">
         <input type="text" id="title" placeholder="Title" name="title">
@@ -67,35 +97,6 @@
         <input type="submit" value="Submit" id="resource-submit">
       </form>
     </section>
-
-    <section class="container">
-      <article class='post'>
-        <header>
-          <h2>post.title</h1>
-        </header>
-        <footer>
-          <p>post.description</p>
-          <div class='timeposted'>
-            <p>post.date</p>
-          </div>
-          <div class='icons'>
-            <i class='fas fa-chevron-up'></i>
-            <i class='fas fa-chevron-down'></i>
-          </div>
-        </footer>
-        <aside>
-          <div class="comments">
-            <p>Comment 1</p>
-            <p>user.username</p>
-          </div>
-          <form action="/post/comment" action="POST" id="comments-form">
-            <textarea placeholder="Comment"></textarea>
-            <input type="submit" id="comment-submit">
-          </form>
-        </aside>
-      </article>
-    </section>
-  </main>
   <div id="loginform" style="background-color: lightblue; display: none">
     <form action="/login" method="post">
       <label for="email">E-Mail</label>
