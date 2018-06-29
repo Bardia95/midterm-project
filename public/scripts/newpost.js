@@ -1,7 +1,6 @@
 $(document).ready(function() {
   // new post form
   $("#newpost").on("click", function() {
-    console.log("showing post form");
     $(".new-post").dialog("open");
   });
   // sets dialog specifications and closes dialog if clicked outside
@@ -69,7 +68,7 @@ $(document).ready(function() {
     const postDescription = postObject["description"];
     const postDate = postObject["date_posted"];
 
-    return ` <article class='post' data-postid=${postID}>
+    return ` <article class='post rendered' data-postid=${postID}>
     <header>
       <h2>${postTitle}</h1>
     </header>
@@ -86,6 +85,18 @@ $(document).ready(function() {
         <i class='fas fa-chevron-down'></i>
       </div>
     </footer>
+    <aside>
+      <div class="comments">
+        <p>content</p>
+        <p>username</p>
+      </div>
+      <div class="comments-form">
+        <form action="/post/comment" method="POST" class="comment-form">
+          <textarea placeholder="comment" name="content"></textarea>
+          <input type="submit" name="comment-submit" id="comment-submit">
+        </form>
+      </div>
+    </aside>
   </article>`;
   }
 });

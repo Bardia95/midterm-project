@@ -25,7 +25,7 @@ $(document).ready(function() {
     const postDate = postObject["date_posted"];
     const likeCount = postObject["likes_count"];
 
-    return ` <article class='post' data-postid=${postID}>
+    return ` <article class='post rendered' data-postid=${postID}>
     <header>
       <h2>${postTitle}</h1>
     </header>
@@ -42,6 +42,18 @@ $(document).ready(function() {
         <i class='fas fa-chevron-down'></i>
       </div>
     </footer>
+    <aside>
+      <div class="comments">
+        <p>content</p>
+        <p>username</p>
+      </div>
+      <div class="comments-form">
+        <form action="/post/comment" method="POST" class="comment-form">
+          <textarea placeholder="comment" name="content"></textarea>
+          <input type="submit" name="comment-submit" id="comment-submit">
+        </form>
+      </div>
+    </aside>
   </article>`;
   }
 });
