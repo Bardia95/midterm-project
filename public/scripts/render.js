@@ -1,18 +1,16 @@
 $(document).ready(function() {
-  $('#logo').on('click', function() {
+  $("#logo").on("click", function() {
     renderPosts();
-  })
+  });
   renderPosts();
   function renderPosts() {
     $("main").empty();
     // grab all the posts in the database
     $.ajax({
       url: "/render",
-      type: "POST"
+      type: "GET"
     }).then(result => {
       // result is an array of post objects
-      console.log(result[0]);
-
       result.forEach(post => {
         $("main").prepend(createPostElement(post));
       });

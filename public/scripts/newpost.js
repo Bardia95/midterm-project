@@ -1,5 +1,5 @@
 $(document).ready(function() {
-// new post form
+  // new post form
   $("#newpost").on("click", function() {
     console.log("showing post form");
     $(".new-post").dialog("open");
@@ -25,9 +25,9 @@ $(document).ready(function() {
     const URL = formSubmissionData.children("input#URL").val();
     const type = formSubmissionData.children("input[name='type']:checked").val();
     const subject = formSubmissionData.children("input[name='subject']:checked").val();
-    const description = formSubmissionData.children("textarea#description").val();
+    const description = formSubmissionData.children("textarea.description").val();
     const title = formSubmissionData.children("input#title").val();
-    let date = new Date().getTime();
+    const date = new Date().getTime();
 
     $.ajax({
       url: "/post",
@@ -41,8 +41,8 @@ $(document).ready(function() {
         date: date
       }
     }).then(function(response) {
-      if (response) {
-        $('post').data('')
+      if (response === true) {
+        $("post").data("");
         $(".new-post").dialog("close");
         renderPosts();
       } else {
@@ -58,8 +58,6 @@ $(document).ready(function() {
       type: "GET"
     }).then(result => {
       // result is an array of post objects
-      console.log(result[0]);
-
       result.forEach(post => {
         $("main").prepend(createPostElement(post));
       });

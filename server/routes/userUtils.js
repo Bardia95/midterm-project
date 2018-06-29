@@ -33,7 +33,6 @@ module.exports = function(knex) {
       const emailResult = await knex("users").where({ email: email });
       if (emailResult[0]) {
         console.log("Email already exists in database");
-        //   res.send(false);
         reject("Email Already Exists");
         return;
       }
@@ -41,7 +40,6 @@ module.exports = function(knex) {
       const usernameResult = await knex("users").where({ username: username });
       if (usernameResult[0]) {
         console.log("Username already exists in database");
-        // res.send(false);
         reject("Username Already Exists");
         return;
       }
@@ -50,16 +48,37 @@ module.exports = function(knex) {
         .insert({ email: email, password: password, username: username })
         .returning("id")
         .then(result => {
-          //   req.session["user_id"] = result[0];
-          //   res.send(true);
           console.log("User Added to DB");
           resolve(result[0]);
         });
     });
   }
 
+  function newPost(type, url, title, subject, description, date, uId) {
+    return new Promise((resolve, reject) => {
+      knex("posts")
+        .insert({
+          type: `${type}`,
+          subject: `${subject}`,
+          title: `${title}`,
+          description: `${description}`,
+          url: `${url}`,
+          date_posted: `${date}`,
+          user_id: uId
+        })
+        .then(result => {
+          console.log(result);
+          resolve(true);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
   return {
     loginAuthentication: loginAuthentication,
-    registerNew: registerNew
+    registerNew: registerNew,
+    newPost: newPost
   };
 };

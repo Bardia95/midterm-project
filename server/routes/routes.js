@@ -42,24 +42,21 @@ module.exports = knex => {
 
   router.post("/post", (req, res) => {
     const type = req.body.type;
-    const URL = req.body.link;
+    const url = req.body.link;
     const title = req.body.title;
     const subject = req.body.subject;
     const description = req.body.description;
-    const date = parseInt(req.body.date);
+    const date = moment(parseInt(req.body.date)).format("l");
     const uId = parseInt(req.session["user_id"]);
-    knex("posts")
-      .insert({
-        type: `'${type}'`,
-        subject: `'${subject}'`,
-        title: `'${title}'`,
-        description: `'${description}'`,
-        url: `'${URL}'`,
-        date_posted: `'${moment(date).format("l")}'`,
-        user_id: uId
-      })
+
+    userUtils
+      .newPost(type, url, title, subject, description, date, uId)
       .then(result => {
         res.send(true);
+      })
+      .catch(err => {
+        console.log("failed");
+        res.send(err);
       });
   });
 
@@ -89,7 +86,7 @@ module.exports = knex => {
     res.send();
   });
   // route to render posts
-  router.post("/render", async (req, res) => {
+  router.get("/render", async (req, res) => {
     try {
       const likesAndDislikes = await knex
         .select("post_id", "like_or_dislike")
