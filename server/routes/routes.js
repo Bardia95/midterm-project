@@ -7,32 +7,21 @@ const bcrypt = require("bcryptjs");
 const moment = require("moment");
 
 module.exports = knex => {
+  const userUtils = require("./userUtils.js")(knex);
+
   // route to login
   router.post("/login", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-
-    // check if username exists in database
-    knex("users")
-      .where({ username: username })
-      .then(function(result) {
-        if (!result || !result[0]) {
-          console.log("invalid username");
-          res.send(false);
-          return;
-        }
-        var pass = result[0].password;
-        if (bcrypt.compareSync(password, pass)) {
-          console.log("Logged in");
-          req.session["user_id"] = result[0]["id"];
-          res.send(true);
-        } else {
-          console.log("Wrong Password");
-          res.send(false);
-        }
+    userUtils
+      .loginAuthentication(username, password)
+      .then(result => {
+        console.log(result);
+        req.session["user_id"] = result;
+        res.send(true);
       })
-      .catch(function(error) {
-        console.log(error);
+      .catch(err => {
+        res.send(err);
       });
   });
 
@@ -66,7 +55,6 @@ module.exports = knex => {
         res.send(true);
       });
   });
-
 
   router.post("/post", (req, res) => {
     const type = req.body.type;
@@ -120,58 +108,56 @@ module.exports = knex => {
   router.post("/render", async (req, res) => {
     try {
       const likesAndDislikes = await knex
-      .select("post_id", "like_or_dislike")
-      .count("like_or_dislike")
-      .from("like_dislike")
-      .groupBy("post_id", "like_or_dislike");
-    const processedCount = processLikesAndDislikes(likesAndDislikes);
-    // update likes count in posts table
-    var promises = [];
-    for (const key in processedCount) {
-      if (processedCount.hasOwnProperty(key)) {
-        promises.push(
-          knex("posts")
-            .where("id", "=", key)
-            .update({ likes_count: processedCount[key] })
-        );
+        .select("post_id", "like_or_dislike")
+        .count("like_or_dislike")
+        .from("like_dislike")
+        .groupBy("post_id", "like_or_dislike");
+      const processedCount = processLikesAndDislikes(likesAndDislikes);
+      // update likes count in posts table
+      var promises = [];
+      for (const key in processedCount) {
+        if (processedCount.hasOwnProperty(key)) {
+          promises.push(
+            knex("posts")
+              .where("id", "=", key)
+              .update({ likes_count: processedCount[key] })
+          );
+        }
       }
-    }
 
-    Promise.all(promises).then(result => {
-      // send the post object with all like counts updated
-      knex("posts").then(result => {
-        res.send(result);
+      Promise.all(promises).then(result => {
+        // send the post object with all like counts updated
+        knex("posts").then(result => {
+          res.send(result);
+        });
       });
-    });
-    } catch(err) {
-      res.status(500).send(err)
+    } catch (err) {
+      res.status(500).send(err);
     }
     // send an array of all post objects
-
-
   });
 
   router.post("/user", async (req, res) => {
     try {
-      let username = req.body.username.toString();
-      const userId = await knex('users').select('id')
-                      .where("username","=",username);
-      const ownPosts = await knex('posts').where("user_id","=", userId[0].id);
+      const username = req.body.username.toString();
+      const userId = await knex("users")
+        .select("id")
+        .where("username", "=", username);
+      const ownPosts = await knex("posts").where("user_id", "=", userId[0].id);
       res.json(ownPosts);
-    } catch(err) {
-      res.status(500).send(err)
+    } catch (err) {
+      res.status(500).send(err);
     }
-  })
-
+  });
 
   // Rob's query code for posts by diff users
-   // let query= knex('posts');
-    // if (req.query.user_id) {
-      //   query = query.whereIn('user_id', req.query.user_id)
-      // }
-      // const allPosts = await query
+  // let query= knex('posts');
+  // if (req.query.user_id) {
+  //   query = query.whereIn('user_id', req.query.user_id)
+  // }
+  // const allPosts = await query
 
-      // res.json(allPosts);
+  // res.json(allPosts);
 
   return router;
   // FUNCTIONS

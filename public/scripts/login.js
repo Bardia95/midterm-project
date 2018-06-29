@@ -1,5 +1,5 @@
 $(document).ready(function() {
-   const toggleNav = function() {
+  const toggleNav = function() {
     if (!document.cookie) {
       $("#signup").css("display", "block");
       $("#login").css("display", "block");
@@ -12,10 +12,9 @@ $(document).ready(function() {
       $("#login").css("display", "none");
       $("#my-profile").css("display", "block");
     }
-  }
+  };
   // make login form
   $("#login").on("click", function() {
-    console.log('opening');
     $("#loginform").dialog("open");
   });
   // sets dialog specifications and closes dialog if clicked outside
@@ -44,13 +43,14 @@ $(document).ready(function() {
       type: "POST",
       data: { username: username, password: password }
     }).then(function(response) {
-      if (response) {
+      if (response === true) {
         $("#loginform").dialog("close");
         document.cookie = username;
         $("#my-profile").html(document.cookie);
         toggleNav();
+        location.reload();
       } else {
-        window.alert("Invalid Login");
+        window.alert(response);
       }
     });
   });
