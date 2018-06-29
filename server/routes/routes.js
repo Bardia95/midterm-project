@@ -24,7 +24,6 @@ module.exports = knex => {
         jwt.sign({ user_id: result }, "secretkey", (err, token) => {
           // sends the token
           res.cookie("token", token);
-
           res.send(true);
         });
       })
@@ -119,11 +118,20 @@ module.exports = knex => {
           );
         }
       }
+      // if they have a cookie, get their data from likes_dislikes table
+      if (req.headers["cookie"]) {
+        const token = getTokenFromCookie(req.headers["cookie"]);
+        const decodedToken = jwt.verify(token, "secretkey");
+        const allLikesAndDislikes = userUtils.findAllLikesAndDislikes(decodedToken["user_id"]);
+        promises.push(allLikesAndDislikes);
+      }
 
       Promise.all(promises).then(result => {
         // send the post object with all like counts updated
-        knex("posts").then(result => {
-          res.send(result);
+        knex("posts").then(allPosts => {
+          // if user is logged in, result[result.length-1] will give an array of all likes and dislikes
+          // if nobody is logged in, result[result.length-1] will be equal to 1
+          res.send([allPosts, result[result.length - 1]]);
         });
       });
     } catch (err) {
@@ -171,7 +179,6 @@ module.exports = knex => {
     return processedCount;
   }
   function getTokenFromCookie(stringOfCookies) {
-    console.log(stringOfCookies);
     // split at spaces
     let tokenString = stringOfCookies.split(" ")[0];
 

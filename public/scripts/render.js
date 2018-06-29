@@ -10,19 +10,31 @@ $(document).ready(function() {
       url: "/render",
       type: "GET"
     }).then(result => {
-      // result is an array of post objects
-      result.forEach(post => {
-        $("main").prepend(createPostElement(post));
+      console.log(result[1]);
+
+      // result[0] is all the posts, result[1] are all liked and dislikes
+      result[0].forEach(post => {
+        $("main").prepend(createPostElement(post, result[1]));
       });
     });
   }
-  function createPostElement(postObject) {
+  function createPostElement(postObject, arrayOfLikesOrDislikes) {
     const postID = postObject["id"];
     const postTitle = postObject["title"];
     const postDescription = postObject["description"];
     const postDate = postObject["date_posted"];
     const likeCount = postObject["likes_count"];
-
+    let liked = "";
+    let disliked = "";
+    if (typeof arrayOfLikesOrDislikes === "object") {
+      arrayOfLikesOrDislikes.forEach(element => {
+        if (element["post_id"] === postID && element["like_or_dislike"] === true) {
+          liked = "liked";
+        } else if (element["post_id"] === postID && element["like_or_dislike"] === false) {
+          disliked = "disliked";
+        }
+      });
+    }
     return ` <article class='post' data-postid=${postID}>
     <header>
       <h2>${postTitle}</h1>
@@ -35,9 +47,9 @@ $(document).ready(function() {
         <p>${moment(postDate).fromNow()}</p>
       </div>
       <div class='icons'>
-        <i class='fas fa-chevron-up'></i>
+        <i class='fas fa-chevron-up ${liked}'></i>
         <p>${likeCount}</p>
-        <i class='fas fa-chevron-down'></i>
+        <i class='fas fa-chevron-down ${disliked}'></i>
       </div>
     </footer>
   </article>`;
