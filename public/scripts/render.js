@@ -8,12 +8,9 @@ $(document).ready(function() {
     // grab all the posts in the database
     $.ajax({
       url: "/render",
-      type: "POST"
-      // send cookie data
+      type: "GET"
     }).then(result => {
       // result is an array of post objects
-      console.log(result[0]);
-
       result.forEach(post => {
         $("main").prepend(createPostElement(post));
       });

@@ -12,7 +12,7 @@ $(document).ready(function() {
       $("#login").css("display", "none");
       $("#my-profile").css("display", "block");
     }
-  }
+  };
   // signup form
   $("#signup").on("click", function() {
     $("#signupform").dialog("open");
@@ -36,7 +36,7 @@ $(document).ready(function() {
     event.preventDefault();
     const formSubmissionData = $(event.target);
     console.log(formSubmissionData);
-    console.log('asdf');
+    console.log("asdf");
     const email = formSubmissionData.children("input#emailsignup").val();
     const password = formSubmissionData.children("input#passwordsignup").val();
     const username = formSubmissionData.children("input#usernamesignup").val();
@@ -44,15 +44,18 @@ $(document).ready(function() {
       url: "/register",
       type: "POST",
       data: { email: email, password: password, username: username }
-    }).then(function(response) {
-      if (response === true) {
-        $("#signupform").dialog("close");
-        document.cookie = username;
-        $("#my-profile").html(document.cookie);
-        toggleNav();
-      } else {
-        window.alert("Email Or Username Already Exists");
-      }
-    });
+    })
+      .then(function(response) {
+        if (response === true) {
+          $("#signupform").dialog("close");
+          toggleNav();
+          location.reload();
+        } else {
+          window.alert(response);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   });
 });

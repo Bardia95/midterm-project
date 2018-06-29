@@ -17,6 +17,7 @@ const knexLogger = require("knex-logger");
 
 const cookieSession = require("cookie-session");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // Seperated Routes for each Resource
 const routes = require("./routes/routes.js");
