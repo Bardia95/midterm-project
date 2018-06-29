@@ -146,7 +146,8 @@ module.exports = knex => {
     console.log(decodedToken);
     try {
       const ownPosts = await knex("posts").where("user_id", "=", decodedToken["user_id"]);
-      res.json(ownPosts);
+      const allLikesAndDislikes = await userUtils.findAllLikesAndDislikes(decodedToken["user_id"]);
+      res.json([ownPosts, allLikesAndDislikes]);
     } catch (err) {
       res.status(500).send(err);
     }
