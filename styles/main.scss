@@ -127,7 +127,14 @@ main {
   background: $blue2;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  #comment-submit {
+  &:hover {
+    cursor: pointer;
+  }
+
+}
+
+
+#comment-submit {
     text-align: center;
     margin-bottom: 10px;
     background-color: $blue1;
@@ -152,4 +159,3 @@ main {
     border-radius: 10px;
     margin-top: 5px;
   }
-}
