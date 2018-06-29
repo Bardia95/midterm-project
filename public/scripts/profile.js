@@ -1,17 +1,15 @@
 $(document).ready(function() {
-
   $("#my-profile").on("click", function() {
     renderOwnPosts();
   });
   function renderOwnPosts() {
     $("main").empty();
-
     // grab all my posts in the database
     $.ajax({
       url: "/user",
-      type: "POST",
-      data: { username: document.cookie }
+      type: "GET"
     }).then(result => {
+      console.log(result);
       // result is an array of post objects
       result.forEach(post => {
         $("main").prepend(createPostElement(post));
