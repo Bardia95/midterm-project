@@ -43,10 +43,8 @@ $(document).ready(function() {
       type: "POST",
       data: { username: username, password: password }
     }).then(function(response) {
-      if (response === true) {
+      if (response !== false) {
         $("#loginform").dialog("close");
-        document.cookie = username;
-        $("#my-profile").html(document.cookie);
         toggleNav();
         location.reload();
       } else {

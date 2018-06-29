@@ -48,8 +48,6 @@ $(document).ready(function() {
       .then(function(response) {
         if (response === true) {
           $("#signupform").dialog("close");
-          document.cookie = username;
-          $("#my-profile").html(document.cookie);
           toggleNav();
           location.reload();
         } else {

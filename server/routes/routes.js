@@ -6,6 +6,8 @@ const bcrypt = require("bcryptjs");
 
 const moment = require("moment");
 
+const jwt = require("jsonwebtoken");
+
 module.exports = knex => {
   const userUtils = require("./userUtils.js")(knex);
 
@@ -16,9 +18,15 @@ module.exports = knex => {
     userUtils
       .loginAuthentication(username, password)
       .then(result => {
+        // result is the user id
         console.log(result);
         req.session["user_id"] = result;
-        res.send(true);
+        jwt.sign({ user_id: result }, "secretkey", (err, token) => {
+          // sends the token
+          res.cookie("token", token);
+
+          res.send(true);
+        });
       })
       .catch(err => {
         res.send(err);
@@ -33,7 +41,12 @@ module.exports = knex => {
       .registerNew(email, password, username)
       .then(result => {
         req.session["user_id"] = result;
-        res.send(true);
+        jwt.sign({ user_id: result }, "secretkey", (err, token) => {
+          // sends the token
+          res.cookie("token", token);
+
+          res.send(true);
+        });
       })
       .catch(err => {
         res.send(err);
@@ -81,6 +94,7 @@ module.exports = knex => {
   // route to log out
   router.post("/logout", (req, res) => {
     req.session = null;
+    res.clearCookie("token");
     res.send();
   });
   // route to render posts
@@ -116,15 +130,13 @@ module.exports = knex => {
     // send an array of all post objects
   });
 
-  // router.get("/post/comment")
 
-  router.post("/user", async (req, res) => {
+  router.get("/user", async (req, res) => {
+    const token = getTokenFromCookie(req.headers["cookie"]);
+    const decodedToken = jwt.verify(token, "secretkey");
+    console.log(decodedToken);
     try {
-      const username = req.body.username.toString();
-      const userId = await knex("users")
-        .select("id")
-        .where("username", "=", username);
-      const ownPosts = await knex("posts").where("user_id", "=", userId[0].id);
+      const ownPosts = await knex("posts").where("user_id", "=", decodedToken["user_id"]);
       res.json(ownPosts);
     } catch (err) {
       res.status(500).send(err);
@@ -156,6 +168,15 @@ module.exports = knex => {
       }
     });
     return processedCount;
+  }
+  function getTokenFromCookie(stringOfCookies) {
+    console.log(stringOfCookies);
+    // split at spaces
+    let tokenString = stringOfCookies.split(" ")[0];
+
+    // remove token= and ; from beginning and end
+    tokenString = tokenString.substring(6, tokenString.length - 1);
+    return tokenString;
   }
   // FUNCTIONS
 };

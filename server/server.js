@@ -17,7 +17,7 @@ const knexLogger = require("knex-logger");
 
 const cookieSession = require("cookie-session");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
 
 // Seperated Routes for each Resource
 const routes = require("./routes/routes.js");
@@ -50,8 +50,6 @@ app.use(
   })
 );
 app.use(express.static(path.join(__dirname, "../public/")));
-
-
 
 // Mount all resource routes
 app.use("/", routes(knex));
