@@ -65,6 +65,12 @@ main {
       .icons {
         margin-right: 1em;
         align-self: center;
+        .fa-chevron-up:hover {
+          color: gold;
+        }
+        .fa-chevron-down:hover {
+          color: gold;
+        }
       }
     }
   }

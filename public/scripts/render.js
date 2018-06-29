@@ -1,7 +1,7 @@
 $(document).ready(function() {
-  $('#logo').on('click', function() {
+  $("#logo").on("click", function() {
     renderPosts();
-  })
+  });
   renderPosts();
   function renderPosts() {
     $("main").empty();
@@ -9,6 +9,7 @@ $(document).ready(function() {
     $.ajax({
       url: "/render",
       type: "POST"
+      // send cookie data
     }).then(result => {
       // result is an array of post objects
       console.log(result[0]);
