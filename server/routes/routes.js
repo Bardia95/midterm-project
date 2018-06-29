@@ -27,32 +27,16 @@ module.exports = knex => {
 
   router.post("/register", async (req, res) => {
     const email = req.body.email;
-    console.log(req.body);
     const password = bcrypt.hashSync(req.body.password, 10);
     const username = req.body.username;
-    console.log(req.body);
-
-    // check if email already exists in database
-    const emailResult = await knex("users").where({ email: email });
-    if (emailResult[0]) {
-      console.log("Email already exists in database");
-      res.send(false);
-      return;
-    }
-    // check if username already exists in database
-    const usernameResult = await knex("users").where({ username: username });
-    if (usernameResult[0]) {
-      console.log("Username already exists in database");
-      res.send(false);
-      return;
-    }
-    // insert into database
-    knex("users")
-      .insert({ email: email, password: password, username: username })
-      .returning("id")
+    userUtils
+      .registerNew(email, password, username)
       .then(result => {
-        req.session["user_id"] = result[0];
+        req.session["user_id"] = result;
         res.send(true);
+      })
+      .catch(err => {
+        res.send(err);
       });
   });
 
