@@ -153,6 +153,55 @@ module.exports = knex => {
     }
   });
 
+  router.put("/like", (req, res) => {
+    // first get the person's user id
+    const token = getTokenFromCookie(req.headers["cookie"]);
+    const decodedToken = jwt.verify(token, "secretkey");
+    const user_id = decodedToken["user_id"];
+    const post_id = req.body.post_id;
+    // find out if already liked or disliked
+    knex("like_dislike")
+      .where({ user_id: user_id, post_id: post_id })
+      .select("like_or_dislike")
+      .then(result => {
+        // check if liked/disliked already
+        if (result[0]) {
+          if (result[0]["like_or_dislike"] === true) {
+            console.log("Person Already Liked This Post");
+            res.send(false);
+          } else {
+            console.log("Person had this post disliked, liking now");
+            // update the false to true
+            knex("like_dislike")
+              .where({
+                post_id: post_id,
+                user_id: user_id
+              })
+              .update({ like_or_dislike: true })
+              .then(result => {
+                res.send(true);
+              });
+          }
+        } else if (!result[0]) {
+          console.log("This person did not like or dislike this post, liking now");
+          knex("like_dislike")
+            .insert({
+              post_id: post_id,
+              user_id: user_id,
+              like_or_dislike: true
+            })
+            .then(result => {
+              res.send(true);
+            });
+        }
+        // if already disliked switch false to true in table
+      })
+      .catch(err => {
+        console.log("error occured");
+        console.log(err);
+      });
+  });
+
   // Rob's query code for posts by diff users
   // let query= knex('posts');
   // if (req.query.user_id) {

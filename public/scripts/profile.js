@@ -9,7 +9,6 @@ $(document).ready(function() {
       url: "/user",
       type: "GET"
     }).then(result => {
-      console.log(result);
       // result is an array of post objects
       result[0].forEach(post => {
         $("main").prepend(createPostElement(post, result[1]));
@@ -17,8 +16,6 @@ $(document).ready(function() {
     });
   }
   function createPostElement(postObject, arrayOfLikesOrDislikes) {
-    console.log(arrayOfLikesOrDislikes);
-
     const postID = postObject["id"];
     const postTitle = postObject["title"];
     const postDescription = postObject["description"];
