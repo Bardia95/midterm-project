@@ -18,6 +18,7 @@ $(document).ready(function() {
       });
     });
   }
+
   function createPostElement(postObject) {
     const postID = postObject["id"];
     const postTitle = postObject["title"];
@@ -44,4 +45,24 @@ $(document).ready(function() {
     </footer>
   </article>`;
   }
+
+  $("body").on("click", "article", function(event) {
+    console.log('hey');
+    // $("#bigpost").dialog("open");
+    // $.ajax({
+    // url: "/post/:id/comment",
+    //     type: "POST",
+    //     data: {
+    //       content: content,
+    //       post_id:  post_id,
+    //     }
+    // }).then(function(response) {
+    //   if (response) {
+    //     console.log("response: ", response);
+    //   } else {
+    //     window.alert("Invalid Comment");
+    //   }
+    // });
+  });
+
 });

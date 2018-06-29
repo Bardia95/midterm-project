@@ -15,7 +15,6 @@ $(document).ready(function() {
   }
   // make login form
   $("#login").on("click", function() {
-    console.log('opening');
     $("#loginform").dialog("open");
   });
   // sets dialog specifications and closes dialog if clicked outside
