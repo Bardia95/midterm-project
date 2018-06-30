@@ -100,7 +100,6 @@ module.exports = knex => {
   });
   // route to render posts
   router.get("/render", async (req, res) => {
-    console.log(req.headers["cookie"]);
     // if user isnt logged in just render all posts
     if (req.headers["cookie"] === undefined) {
       try {

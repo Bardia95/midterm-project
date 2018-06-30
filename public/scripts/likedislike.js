@@ -48,5 +48,12 @@ $(document).ready(function() {
         }
       });
     });
+  } else {
+    $("body").on("click", ".fa-chevron-up", function() {
+      alert("Please Login or Sign Up to like posts! :)");
+    });
+    $("body").on("click", ".fa-chevron-down", function() {
+      alert("Please Login or Sign Up to dislike posts! :)");
+    });
   }
 });
