@@ -82,18 +82,22 @@ module.exports = knex => {
         text: content,
         user_id: uId,
         post_id: postID
-      }).then(result => {
+      })
+      .then(result => {
         res.json(result);
       });
   });
 
   router.post("/post/comments", (req, res) => {
-    const postComments = knex('comments').select('text', 'username').join('users', {'comments.user_id': 'users.id'}).where({post_id: req.body.post_id});
-    postComments.then( results => {
-      console.log(results)
+    const postComments = knex("comments")
+      .select("text", "username")
+      .join("users", { "comments.user_id": "users.id" })
+      .where({ post_id: req.body.post_id });
+    postComments.then(results => {
+      console.log(results);
       res.json(results);
-    })
-  })
+    });
+  });
 
   // route to log out
   router.post("/logout", (req, res) => {
@@ -129,7 +133,6 @@ module.exports = knex => {
     }
   });
 
-
   router.get("/user", async (req, res) => {
     const token = getTokenFromCookie(req.headers["cookie"]);
     // contains the user_id
@@ -144,12 +147,15 @@ module.exports = knex => {
     }
   });
 
-   router.get("/user/likes", async (req, res) => {
+  router.get("/user/likes", async (req, res) => {
     const token = getTokenFromCookie(req.headers["cookie"]);
     // contains the user_id
     const decodedToken = jwt.verify(token, "secretkey");
     try {
-      const likedPosts = await knex("posts").join('like_dislike', {'posts.id': "like_dislike.post_id"}).where("like_dislike.user_id", "=", decodedToken["user_id"]).andWhere("like_dislike.like_or_dislike", "=", true);
+      const likedPosts = await knex("posts")
+        .join("like_dislike", { "posts.id": "like_dislike.post_id" })
+        .where("like_dislike.user_id", "=", decodedToken["user_id"])
+        .andWhere("like_dislike.like_or_dislike", "=", true);
       const allLikesAndDislikes = await userUtils.findAllLikesAndDislikes(decodedToken["user_id"]);
       const profileData = await knex("users").where("id", "=", decodedToken["user_id"]);
       res.json([likedPosts, allLikesAndDislikes, profileData]);
@@ -277,14 +283,12 @@ module.exports = knex => {
 
   // Route to Edit Profile
   router.put("/editprofile", (req, res) => {
-    const token = getTokenFromCookie(req.headers["cookie"]);
-    const decodedToken = jwt.verify(token, "secretkey");
-    const user_id = decodedToken["user_id"];
-    const newPassword = bcrypt.hashSync(req.body["password"], 10);
+    const uId = parseInt(req.session["user_id"]);
+    const newPassword = bcrypt.hashSync(req.body["newPassword"], 10);
+    const oldPassword = req.body["oldPassword"]
     userUtils
-      .changePassword(newPassword, user_id)
+      .changePassword(oldPassword, newPassword, uId)
       .then(result => {
-        console.log(result);
         res.json(result);
       })
       .catch(err => {

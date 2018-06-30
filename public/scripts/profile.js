@@ -1,17 +1,23 @@
 $(document).ready(function() {
   $("#my-profile").on("click", function() {
     renderOwnPosts();
-    $('.toggle-profile').css('display', 'block');
+    $(".toggle-profile").css("display", "block");
   });
-  $("body").on("click", '.toggle-profile', function() {
-    if ($(this).hasClass('own-posts')) {
+  $("body").on("click", ".toggle-profile", function() {
+    if ($(this).hasClass("own-posts")) {
       renderOwnPosts();
-      $(this).removeClass('own-posts').addClass('liked-posts').html('Liked Posts');
-    } else if ($(this).hasClass('liked-posts')) {
+      $(this)
+        .removeClass("own-posts")
+        .addClass("liked-posts")
+        .html("Liked Posts");
+    } else if ($(this).hasClass("liked-posts")) {
       renderLikedPosts();
-      $(this).removeClass('liked-posts').addClass('own-posts').html('Your Posts');
+      $(this)
+        .removeClass("liked-posts")
+        .addClass("own-posts")
+        .html("Your Posts");
     }
-  })
+  });
   function renderLikedPosts() {
     $("main").empty();
 
@@ -106,9 +112,11 @@ $(document).ready(function() {
     <aside>
     <div id="editprofile" style="background-color: lightgreen; display: none">
     <form action="/editprofile" method="post">
-      <p>Please enter new password</p>
-      <label for="password">Password</label>
-      <input id="passwordedit" type="password" name="password">
+      <p>Change your password</p>
+      <label for="password">Old Password</label>
+      <input id="oldpassword" type="password" name="oldpassword">
+      <label for="password">New Password</label>
+      <input id="newpassword" type="password" name="newpassword">
       <input type="submit" value="submit">
     </form>
   </div>

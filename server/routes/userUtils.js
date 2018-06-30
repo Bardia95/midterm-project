@@ -89,14 +89,24 @@ module.exports = function(knex) {
     });
   }
 
-  function changePassword(password, userid) {
+  function changePassword(oldpassword, newpassword, userid) {
     return new Promise((resolve, reject) => {
       knex("users")
         .where({ id: userid })
-        .update({ password: password })
         .then(result => {
-          console.log("Password Updated");
-          resolve(result);
+          // check if old password matches first, if it does then update password
+          if (bcrypt.compareSync(oldpassword, result[0]["password"])) {
+            console.log("old password match, changing new password");
+            knex("users")
+              .where({ id: userid })
+              .update({ password: newpassword })
+              .then(result => {
+                resolve(result);
+              });
+          } else {
+            console.log("Old passwords don't match. Password change failed");
+            reject(result);
+          }
         })
         .catch(err => {
           console.log("Could not find user associated");

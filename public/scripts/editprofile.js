@@ -23,13 +23,14 @@ $(document).ready(function() {
   $(document).on("submit", "#editprofile", function(event) {
     event.preventDefault();
     const formSubmissionData = $(event.target);
-    const password = formSubmissionData.children("input#passwordedit").val();
+    const oldPassword = formSubmissionData.children("input#oldpassword").val();
+    const newPassword = formSubmissionData.children("input#newpassword").val();
 
     // ajax request to server
     $.ajax({
       url: "/editprofile",
       type: "PUT",
-      data: { password: password }
+      data: { oldPassword: oldPassword, newPassword: newPassword }
     }).then(response => {
       if (response === 1) {
         $("#editprofile").dialog("close");
