@@ -100,44 +100,31 @@ module.exports = knex => {
   });
   // route to render posts
   router.get("/render", async (req, res) => {
-    try {
-      const likesAndDislikes = await knex
-        .select("post_id", "like_or_dislike")
-        .count("like_or_dislike")
-        .from("like_dislike")
-        .groupBy("post_id", "like_or_dislike");
-      const processedCount = processLikesAndDislikes(likesAndDislikes);
-      // update likes count in posts table
-      var promises = [];
-      for (const key in processedCount) {
-        if (processedCount.hasOwnProperty(key)) {
-          promises.push(
-            knex("posts")
-              .where("id", "=", key)
-              .update({ likes_count: processedCount[key] })
-          );
-        }
+    console.log(req.headers["cookie"]);
+    // if user isnt logged in just render all posts
+    if (req.headers["cookie"] === undefined) {
+      try {
+        const allPosts = await knex("posts");
+        res.json([allPosts, 0]);
+        return;
+      } catch (err) {
+        res.status(500).send(err);
       }
-      // if they have a cookie, get their data from likes_dislikes table
-      if (req.headers["cookie"]) {
-        const token = getTokenFromCookie(req.headers["cookie"]);
-        const decodedToken = jwt.verify(token, "secretkey");
-        const allLikesAndDislikes = userUtils.findAllLikesAndDislikes(decodedToken["user_id"]);
-        promises.push(allLikesAndDislikes);
+    } else {
+      // if user is logged in render all posts with the ones they liked and disliked colored
+      const token = getTokenFromCookie(req.headers["cookie"]);
+      const decodedToken = jwt.verify(token, "secretkey");
+      console.log(decodedToken);
+      try {
+        const allPosts = await knex("posts");
+        const allLikesAndDislikes = await userUtils.findAllLikesAndDislikes(
+          decodedToken["user_id"]
+        );
+        res.json([allPosts, allLikesAndDislikes]);
+      } catch (err) {
+        res.status(500).send(err);
       }
-
-      Promise.all(promises).then(result => {
-        // send the post object with all like counts updated
-        knex("posts").then(allPosts => {
-          // if user is logged in, result[result.length-1] will give an array of all likes and dislikes
-          // if nobody is logged in, result[result.length-1] will be equal to 1
-          res.send([allPosts, result[result.length - 1]]);
-        });
-      });
-    } catch (err) {
-      res.status(500).send(err);
     }
-    // send an array of all post objects
   });
 
   router.get("/user", async (req, res) => {
@@ -281,21 +268,7 @@ module.exports = knex => {
 
   return router;
   // FUNCTIONS
-  function processLikesAndDislikes(likesAndDislikesArray) {
-    const processedCount = {};
-    likesAndDislikesArray.forEach(element => {
-      if (processedCount[element["post_id"]] === undefined) {
-        processedCount[element["post_id"]] = 0;
-      }
-      if (element["like_or_dislike"] === true) {
-        processedCount[element["post_id"]] += parseInt(element["count"], 10);
-      }
-      if (element["like_or_dislike"] === false) {
-        processedCount[element["post_id"]] -= parseInt(element["count"], 10);
-      }
-    });
-    return processedCount;
-  }
+
   function getTokenFromCookie(stringOfCookies) {
     // split at spaces
     let tokenString = stringOfCookies.split(" ")[0];
