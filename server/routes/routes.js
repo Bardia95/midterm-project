@@ -144,6 +144,20 @@ module.exports = knex => {
     }
   });
 
+   router.get("/user/likes", async (req, res) => {
+    const token = getTokenFromCookie(req.headers["cookie"]);
+    // contains the user_id
+    const decodedToken = jwt.verify(token, "secretkey");
+    try {
+      const likedPosts = await knex("posts").join('like_dislike', {'posts.id': "like_dislike.post_id"}).where("like_dislike.user_id", "=", decodedToken["user_id"]).andWhere("like_dislike.like_or_dislike", "=", true);
+      const allLikesAndDislikes = await userUtils.findAllLikesAndDislikes(decodedToken["user_id"]);
+      const profileData = await knex("users").where("id", "=", decodedToken["user_id"]);
+      res.json([likedPosts, allLikesAndDislikes, profileData]);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  });
+
   router.put("/like", (req, res) => {
     // first get the person's user id
     const token = getTokenFromCookie(req.headers["cookie"]);

@@ -1,12 +1,10 @@
 $(document).ready(function() {
   $("body").on("click", ".rendered", function(event) {
-    // const post_id = $(this).attr("postid");
-    // $('article').dialog().dialog('close');
+
     let dialogClone = $(this).clone().removeClass('rendered');
     dialogClone.dialog().dialog("open");
     dialogClone.children('aside').css("display", "block");
     let postID = dialogClone.data("postid");
-    // console.log(postID);
     renderComments(postID, dialogClone);
 
 

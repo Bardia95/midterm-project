@@ -34,7 +34,7 @@ $(document).ready(function() {
         }
       });
     }
-    return ` <article class='post' data-postid=${postID}>
+    return ` <article class='post rendered' data-postid=${postID}>
     <header>
       <h2>${postTitle}</h1>
     </header>
