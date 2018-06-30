@@ -89,10 +89,27 @@ module.exports = function(knex) {
     });
   }
 
+  function changePassword(password, userid) {
+    return new Promise((resolve, reject) => {
+      knex("users")
+        .where({ id: userid })
+        .update({ password: password })
+        .then(result => {
+          console.log("Password Updated");
+          resolve(result);
+        })
+        .catch(err => {
+          console.log("Could not find user associated");
+          reject(err);
+        });
+    });
+  }
+
   return {
     loginAuthentication: loginAuthentication,
     registerNew: registerNew,
     newPost: newPost,
-    findAllLikesAndDislikes: findAllLikesAndDislikes
+    findAllLikesAndDislikes: findAllLikesAndDislikes,
+    changePassword: changePassword
   };
 };
