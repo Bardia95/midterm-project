@@ -40,7 +40,3 @@ $(document).ready(function() {
     });
   });
 });
-
-function yeaheh() {
-  console.log("yeaheh");
-}
