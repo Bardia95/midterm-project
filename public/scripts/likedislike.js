@@ -16,7 +16,7 @@ $(document).ready(function() {
       }).then(function(response) {
         if (response === true) {
           $downArrow.removeClass("disliked");
-          $upArrow.css("color", "gold");
+          $upArrow.addClass("liked");
           var currentLike = parseInt($upArrow.siblings("p").text(), 10);
           // adds one to the currentlike
           $upArrow.siblings("p").text(currentLike + 1);
@@ -25,7 +25,28 @@ $(document).ready(function() {
         }
       });
     });
-    // save it into the post likes table with ajax
+    // same code dislikes
+    $("body").on("click", ".fa-chevron-down", function() {
+      const $downArrow = $(this);
+      const $upArrow = $(this).siblings("i");
+      const $postID = $(this)
+        .parents("article")
+        .data("postid");
+      $.ajax({
+        url: "/dislike",
+        type: "PUT",
+        data: { post_id: $postID }
+      }).then(response => {
+        if (response === true) {
+          $upArrow.removeClass("liked");
+          $downArrow.addClass("disliked");
+          var currentLike = parseInt($downArrow.siblings("p").text(), 10);
+          // adds one to the currentlike
+          $downArrow.siblings("p").text(currentLike - 1);
+        } else {
+          console.log("You've already disliked this post");
+        }
+      });
+    });
   }
-  // check if user liked it already
 });

@@ -179,7 +179,13 @@ module.exports = knex => {
               })
               .update({ like_or_dislike: true })
               .then(result => {
-                res.send(true);
+                // then update the likes_count in posts table +1
+                knex("posts")
+                  .where({ id: post_id })
+                  .update({ likes_count: knex.raw("?? + 1", ["likes_count"]) })
+                  .then(result => {
+                    res.send(true);
+                  });
               });
           }
         } else if (!result[0]) {
@@ -191,7 +197,13 @@ module.exports = knex => {
               like_or_dislike: true
             })
             .then(result => {
-              res.send(true);
+              // then update the likes_count in posts table + 1
+              knex("posts")
+                .where({ id: post_id })
+                .update({ likes_count: knex.raw("?? + 1", ["likes_count"]) })
+                .then(result => {
+                  res.send(true);
+                });
             });
         }
         // if already disliked switch false to true in table
@@ -199,6 +211,62 @@ module.exports = knex => {
       .catch(err => {
         console.log("error occured");
         console.log(err);
+      });
+  });
+  // Route For Dislikes
+  router.put("/dislike", (req, res) => {
+    // first get the person's user id
+    const token = getTokenFromCookie(req.headers["cookie"]);
+    const decodedToken = jwt.verify(token, "secretkey");
+    const user_id = decodedToken["user_id"];
+    const post_id = req.body.post_id;
+    // find out if already liked or disliked
+    knex("like_dislike")
+      .where({ user_id: user_id, post_id: post_id })
+      .select("like_or_dislike")
+      .then(result => {
+        // check if person already disliked post
+        if (result[0]) {
+          if (result[0]["like_or_dislike"] === false) {
+            console.log("Person Already Disliked This Post");
+            res.send(false);
+          } else {
+            console.log("Person had this post liked, disliking now");
+            // update the true to false
+            knex("like_dislike")
+              .where({
+                post_id: post_id,
+                user_id: user_id
+              })
+              .update({ like_or_dislike: false })
+              .then(result => {
+                // then update the likes_count in posts table -1
+                knex("posts")
+                  .where({ id: post_id })
+                  .update({ likes_count: knex.raw("?? - 1", ["likes_count"]) })
+                  .then(result => {
+                    res.send(true);
+                  });
+              });
+          }
+        } else if (!result[0]) {
+          console.log("This person did not like or dislike this post, disliking now");
+          knex("like_dislike")
+            .insert({
+              post_id: post_id,
+              user_id: user_id,
+              like_or_dislike: false
+            })
+            .then(result => {
+              // then update the like count
+              knex("posts")
+                .where({ id: post_id })
+                .update({ likes_count: knex.raw("?? - 1", ["likes_count"]) })
+                .then(result => {
+                  res.send(true);
+                });
+            });
+        }
       });
   });
 
