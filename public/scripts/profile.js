@@ -10,7 +10,7 @@ $(document).ready(function() {
       url: "/user",
       type: "GET"
     }).then(result => {
-      $("main").append(createProfileHeader());
+      $("main").append(createProfileHeader(result[2]));
       $("main").append('<section class="posts-container"></section>');
       // result is an array of post objects
       result[0].forEach(post => {
@@ -54,14 +54,14 @@ $(document).ready(function() {
     </footer>
   </article>`;
   }
-  function createProfileHeader() {
+  function createProfileHeader(profileData) {
+    const username = profileData[0]["username"];
     return `
     <div class= "profile-header">
-      <img src="https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/83/30/7b/83307ba6-ad08-463e-e4aa-401d112ec5ac/source/1200x630bb.jpg" alt="Smiley face" height="200" width="200">
-      <h1>Hello Username</h1>      
+      <img src="https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/83/30/7b/83307ba6-ad08-463e-e4aa-401d112ec5ac/source/1200x630bb.jpg" alt="profile-picture" height="200" width="200">
+      <h1>Hello ${username}</h1>      
       <button type="button" class="edit-info-button">Edit Profile</button>
       <h2>Your Posts</h2>
-
     </div>
     `;
   }

@@ -128,12 +128,13 @@ module.exports = knex => {
 
   router.get("/user", async (req, res) => {
     const token = getTokenFromCookie(req.headers["cookie"]);
+    // contains the user_id
     const decodedToken = jwt.verify(token, "secretkey");
-    console.log(decodedToken);
     try {
       const ownPosts = await knex("posts").where("user_id", "=", decodedToken["user_id"]);
       const allLikesAndDislikes = await userUtils.findAllLikesAndDislikes(decodedToken["user_id"]);
-      res.json([ownPosts, allLikesAndDislikes]);
+      const profileData = await knex("users").where("id", "=", decodedToken["user_id"]);
+      res.json([ownPosts, allLikesAndDislikes, profileData]);
     } catch (err) {
       res.status(500).send(err);
     }
