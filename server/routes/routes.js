@@ -275,6 +275,23 @@ module.exports = knex => {
       });
   });
 
+  // Route to Edit Profile
+  router.put("/editprofile", (req, res) => {
+    const token = getTokenFromCookie(req.headers["cookie"]);
+    const decodedToken = jwt.verify(token, "secretkey");
+    const user_id = decodedToken["user_id"];
+    const newPassword = bcrypt.hashSync(req.body["password"], 10);
+    userUtils
+      .changePassword(newPassword, user_id)
+      .then(result => {
+        console.log(result);
+        res.json(result);
+      })
+      .catch(err => {
+        res.json(false);
+      });
+  });
+
   // Rob's query code for posts by diff users
   // let query= knex('posts');
   // if (req.query.user_id) {
