@@ -20,4 +20,27 @@ $(document).ready(function() {
       .dialog(opt)
       .dialog("open");
   });
+  $(document).on("submit", "#editprofile", function(event) {
+    event.preventDefault();
+    const formSubmissionData = $(event.target);
+    const password = formSubmissionData.children("input#passwordedit").val();
+
+    // ajax request to server
+    $.ajax({
+      url: "/editprofile",
+      type: "PUT",
+      data: { password: password }
+    }).then(response => {
+      if (response === 1) {
+        $("#editprofile").dialog("close");
+        alert("Password Succesfully Changed");
+      } else {
+        alert("Password Change Failed");
+      }
+    });
+  });
 });
+
+function yeaheh() {
+  console.log("yeaheh");
+}
