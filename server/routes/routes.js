@@ -75,21 +75,26 @@ module.exports = knex => {
 
   router.post("/post/comment", (req, res) => {
     const content = req.body.content;
+    const postID = req.body.post_id;
     const uId = parseInt(req.session["user_id"]);
     // const comment_id =
     knex("comments")
       .insert({
-        content: content,
-        user_id: uId
+        text: content,
+        user_id: uId,
+        post_id: postID
       }).then(result => {
-        knex("comments_posts")
-        .insert({
-          comment_id: knex('comments')
-        })
-      }).then(result => {
-        res.send(true);
+        res.json(result);
       });
   });
+
+  router.post("/post/comments", (req, res) => {
+    const postComments = knex('comments').select('text', 'username').join('users', {'comments.user_id': 'users.id'}).where({post_id: req.body.post_id});
+    postComments.then( results => {
+      console.log(results)
+      res.json(results);
+    })
+  })
 
   // route to log out
   router.post("/logout", (req, res) => {

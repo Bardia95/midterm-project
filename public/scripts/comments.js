@@ -1,11 +1,14 @@
 $(document).ready(function() {
-  // comments
   $("body").on("click", ".rendered", function(event) {
     // const post_id = $(this).attr("postid");
     // $('article').dialog().dialog('close');
     let dialogClone = $(this).clone().removeClass('rendered');
     dialogClone.dialog().dialog("open");
     dialogClone.children('aside').css("display", "block");
+    let postID = dialogClone.data("postid");
+    // console.log(postID);
+    renderComments(postID, dialogClone);
+
 
     dialogClone.dialog({
     autoOpen: false,
@@ -23,22 +26,24 @@ $(document).ready(function() {
     });
   });
 
-  $(".comment-form").on("submit", function(event) {
+  $("body").on("submit", ".comment-form", function(event) {
     event.preventDefault();
     const formSubmissionData = $(event.target);
     const content = formSubmissionData.children("textarea").val();
+    const postID = $(this).parents('article').data('postid');
+    const thisDialog = $(this).parents('article');
+    renderComments(postID, thisDialog);
 
     $.ajax({
       url: "/post/comment",
       type: "POST",
       data: {
         content: content,
-
+        post_id: postID
       }
     }).then(function(response) {
-      if (response === true) {
+      if (response) {
         $("comments").data("");
-        renderComments();
       } else {
         window.alert("Invalid Comment");
       }
@@ -46,17 +51,28 @@ $(document).ready(function() {
   });
   // sets dialog specifications and closes dialog if clicked outside
 
-  function renderPosts() {
-    $("comments").empty();
-    // grab all the posts in the database
+  function renderComments(post_id, dialog) {
+    dialog.find('.comments').empty();
     $.ajax({
-      url: "/post/comment",
-      type: "GET"
+      url: "/post/comments",
+      type: "POST",
+      data: {post_id: post_id}
     }).then(result => {
-      // result is an array of post objects
+      // result is an array of comment objects
+      console.log(result);
       result.forEach(comment => {
-        $("comments").prepend(createPostElement(comment));
+        dialog.find('.comments').append(createCommentElement(comment));
       });
     });
   };
+
+  function createCommentElement(comment) {
+    const content = comment['text'];
+    console.log(content);
+    const username = comment['username'];
+    console.log(username);
+    return `
+        <p>${content}</p><br>
+        <p>- ${username}</p>`;
+  }
 });

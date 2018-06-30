@@ -40,7 +40,7 @@ $(document).ready(function() {
         date: date
       }
     }).then(function(response) {
-      if (response === true) {
+      if (response) {
         $("post").data("");
         $(".new-post").dialog("close");
         renderPosts();
@@ -93,7 +93,7 @@ $(document).ready(function() {
       <div class="comments-form">
         <form action="/post/comment" method="POST" class="comment-form">
           <textarea placeholder="comment" name="content"></textarea>
-          <input type="submit" name="comment-submit" id="comment-submit">
+          <input type="submit" name="comment-submit" class="comment-submit">
         </form>
       </div>
     </aside>
