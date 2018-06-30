@@ -4,14 +4,17 @@ $(document).ready(function() {
   });
   function renderOwnPosts() {
     $("main").empty();
+
     // grab all my posts in the database
     $.ajax({
       url: "/user",
       type: "GET"
     }).then(result => {
+      $("main").append(createProfileHeader());
+      $("main").append('<section class="posts-container"></section>');
       // result is an array of post objects
       result[0].forEach(post => {
-        $("main").prepend(createPostElement(post, result[1]));
+        $(".posts-container").append(createPostElement(post, result[1]));
       });
     });
   }
@@ -50,5 +53,16 @@ $(document).ready(function() {
       </div>
     </footer>
   </article>`;
+  }
+  function createProfileHeader() {
+    return `
+    <div class= "profile-header">
+      <img src="https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/83/30/7b/83307ba6-ad08-463e-e4aa-401d112ec5ac/source/1200x630bb.jpg" alt="Smiley face" height="200" width="200">
+      <h1>Hello Username</h1>      
+      <button type="button" class="edit-info-button">Edit Profile</button>
+      <h2>Your Posts</h2>
+
+    </div>
+    `;
   }
 });
