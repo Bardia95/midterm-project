@@ -76,9 +76,23 @@ module.exports = function(knex) {
     });
   }
 
+  function findAllLikesAndDislikes(user_id) {
+    return new Promise((resolve, reject) => {
+      knex("like_dislike")
+        .where({ user_id: user_id })
+        .then(result => {
+          resolve(result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
   return {
     loginAuthentication: loginAuthentication,
     registerNew: registerNew,
-    newPost: newPost
+    newPost: newPost,
+    findAllLikesAndDislikes: findAllLikesAndDislikes
   };
 };

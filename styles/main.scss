@@ -45,6 +45,35 @@ main {
   margin: 2em 4em;
   display: flex;
   flex-wrap: wrap;
+  .profile-header {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    img {
+      border-radius: 50%;
+    }
+    h1 {
+      align-self: center;
+      margin: 0 2em;
+    }
+    button {
+      height: 3em;
+      align-self: center;
+    }
+    h2 {
+      flex-basis: 100%;
+      display: flex;
+      align-self: center;
+      font-size: 3em;
+    }
+  }
+  .posts-container {
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
   article {
     margin: 1em;
     display: flex;
@@ -65,6 +94,18 @@ main {
       .icons {
         margin-right: 1em;
         align-self: center;
+        .liked {
+          color: gold;
+        }
+        .disliked {
+          color: red;
+        }
+        .fa-chevron-up:hover {
+          color: gold;
+        }
+        .fa-chevron-down:hover {
+          color: red;
+        }
       }
     }
   }

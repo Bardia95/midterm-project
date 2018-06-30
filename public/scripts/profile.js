@@ -4,26 +4,38 @@ $(document).ready(function() {
   });
   function renderOwnPosts() {
     $("main").empty();
+
     // grab all my posts in the database
     $.ajax({
       url: "/user",
       type: "GET"
     }).then(result => {
-      console.log(result);
+      $("main").append(createProfileHeader(result[2]));
+      $("main").append('<section class="posts-container"></section>');
       // result is an array of post objects
-      result.forEach(post => {
-        $("main").prepend(createPostElement(post));
+      result[0].forEach(post => {
+        $(".posts-container").append(createPostElement(post, result[1]));
       });
     });
   }
-  function createPostElement(postObject) {
+  function createPostElement(postObject, arrayOfLikesOrDislikes) {
     const postID = postObject["id"];
     const postTitle = postObject["title"];
     const postDescription = postObject["description"];
     const postDate = postObject["date_posted"];
     const likeCount = postObject["likes_count"];
-
-    return ` <article class='post rendered' data-postid=${postID}>
+    let liked = "";
+    let disliked = "";
+    if (typeof arrayOfLikesOrDislikes === "object") {
+      arrayOfLikesOrDislikes.forEach(element => {
+        if (element["post_id"] === postID && element["like_or_dislike"] === true) {
+          liked = "liked";
+        } else if (element["post_id"] === postID && element["like_or_dislike"] === false) {
+          disliked = "disliked";
+        }
+      });
+    }
+    return ` <article class='post' data-postid=${postID}>
     <header>
       <h2>${postTitle}</h1>
     </header>
@@ -35,9 +47,9 @@ $(document).ready(function() {
         <p>${moment(postDate).fromNow()}</p>
       </div>
       <div class='icons'>
-        <i class='fas fa-chevron-up'></i>
+        <i class='fas fa-chevron-up ${liked}'></i>
         <p>${likeCount}</p>
-        <i class='fas fa-chevron-down'></i>
+        <i class='fas fa-chevron-down ${disliked}'></i>
       </div>
     </footer>
     <aside>
@@ -53,5 +65,16 @@ $(document).ready(function() {
       </div>
     </aside>
   </article>`;
+  }
+  function createProfileHeader(profileData) {
+    const username = profileData[0]["username"];
+    return `
+    <div class= "profile-header">
+      <img src="https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/83/30/7b/83307ba6-ad08-463e-e4aa-401d112ec5ac/source/1200x630bb.jpg" alt="profile-picture" height="200" width="200">
+      <h1>Hello ${username}</h1>
+      <button type="button" class="edit-info-button">Edit Profile</button>
+      <h2>Your Posts</h2>
+    </div>
+    `;
   }
 });
