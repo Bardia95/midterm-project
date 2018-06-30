@@ -179,7 +179,7 @@ module.exports = knex => {
         if (result[0]) {
           if (result[0]["like_or_dislike"] === true) {
             console.log("Person Already Liked This Post");
-            res.send(false);
+            res.json(3);
           } else {
             console.log("Person had this post disliked, liking now");
             // update the false to true
@@ -190,12 +190,12 @@ module.exports = knex => {
               })
               .update({ like_or_dislike: true })
               .then(result => {
-                // then update the likes_count in posts table +1
+                // then update the likes_count in posts table + 2
                 knex("posts")
                   .where({ id: post_id })
-                  .update({ likes_count: knex.raw("?? + 1", ["likes_count"]) })
+                  .update({ likes_count: knex.raw("?? + 2", ["likes_count"]) })
                   .then(result => {
-                    res.send(true);
+                    res.json(2);
                   });
               });
           }
@@ -213,7 +213,7 @@ module.exports = knex => {
                 .where({ id: post_id })
                 .update({ likes_count: knex.raw("?? + 1", ["likes_count"]) })
                 .then(result => {
-                  res.send(true);
+                  res.json(1);
                 });
             });
         }
@@ -240,7 +240,7 @@ module.exports = knex => {
         if (result[0]) {
           if (result[0]["like_or_dislike"] === false) {
             console.log("Person Already Disliked This Post");
-            res.send(false);
+            res.json(3);
           } else {
             console.log("Person had this post liked, disliking now");
             // update the true to false
@@ -251,12 +251,12 @@ module.exports = knex => {
               })
               .update({ like_or_dislike: false })
               .then(result => {
-                // then update the likes_count in posts table -1
+                // then update the likes_count in posts table - 2
                 knex("posts")
                   .where({ id: post_id })
-                  .update({ likes_count: knex.raw("?? - 1", ["likes_count"]) })
+                  .update({ likes_count: knex.raw("?? - 2", ["likes_count"]) })
                   .then(result => {
-                    res.send(true);
+                    res.json(2);
                   });
               });
           }
@@ -274,7 +274,7 @@ module.exports = knex => {
                 .where({ id: post_id })
                 .update({ likes_count: knex.raw("?? - 1", ["likes_count"]) })
                 .then(result => {
-                  res.send(true);
+                  res.json(1);
                 });
             });
         }
@@ -285,7 +285,7 @@ module.exports = knex => {
   router.put("/editprofile", (req, res) => {
     const uId = parseInt(req.session["user_id"]);
     const newPassword = bcrypt.hashSync(req.body["newPassword"], 10);
-    const oldPassword = req.body["oldPassword"]
+    const oldPassword = req.body["oldPassword"];
     userUtils
       .changePassword(oldPassword, newPassword, uId)
       .then(result => {
