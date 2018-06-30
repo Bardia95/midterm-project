@@ -60,9 +60,22 @@ $(document).ready(function() {
     <div class= "profile-header">
       <img src="https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/83/30/7b/83307ba6-ad08-463e-e4aa-401d112ec5ac/source/1200x630bb.jpg" alt="profile-picture" height="200" width="200">
       <h1>Hello ${username}</h1>      
-      <button type="button" class="edit-info-button">Edit Profile</button>
+      <button type="button" id="edit-info-button" data-toggle="modal" data-target="#exampleModalCenter">Edit Profile</button>
       <h2>Your Posts</h2>
     </div>
+    <aside>
+    <div id="editprofile" style="background-color: lightgreen; display: none">
+    <form action="/editprofile" method="post">
+      <label for="email">E-Mail</label>
+      <input id="emailedit" type="email" name="email">
+      <label for="username">Username</label>
+      <input id="usernameedit" type="text" name="username">
+      <label for="password">Password</label>
+      <input id="passwordedit" type="password" name="password">
+      <input type="submit" value="submit">
+    </form>
+  </div>
+  </aside>
     `;
   }
 });
