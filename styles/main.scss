@@ -171,7 +171,7 @@ main {
   aside {
     display: none;
   }
-.comment-submit {
+  .comment-submit {
     text-align: center;
     margin-bottom: 10px;
     background-color: $blue1;
@@ -196,7 +196,6 @@ main {
     border-radius: 10px;
     margin-top: 5px;
   }
-
 }
 
 .rendered {
@@ -209,5 +208,53 @@ main {
   display: hidden;
 }
 
-
-
+//search form css
+.search-form {
+  h2 {
+    text-align: center;
+    margin-bottom: -5px;
+  }
+  border-radius: 15px;
+  background: $blue3;
+  width: 50%;
+  overflow: auto;
+  color: black;
+  form {
+    margin: auto;
+    text-align: center;
+  }
+  textarea {
+    min-width: 90%;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin-top: 5px;
+  }
+  input {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin-top: 5px;
+    border: 0px;
+    font-size: 1em;
+    padding-left: 5px;
+    height: 20px;
+  }
+  .search-submit {
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: $red;
+    color: $blue1;
+    height: 25px;
+    width: 80px;
+    border: 0px;
+    cursor: pointer;
+    margin-top: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    &:hover {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background-color: $blue1;
+      color: $red;
+    }
+  }
+}

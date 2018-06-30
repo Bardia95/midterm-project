@@ -25,6 +25,7 @@
   <script type="text/javascript" src="/scripts/likedislike.js"></script>
   <script type="text/javascript" src="/scripts/editprofile.js"></script>
   <script type="text/javascript" src="/scripts/comments.js"></script>
+  <script type="text/javascript" src="/scripts/search.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
 
 
@@ -43,6 +44,7 @@
       <a href="#" id="login" class="nav-btn">Log In</a>
       <a href="#" id="signup" class="nav-btn">Sign Up</a>
       <a href="#" id="my-profile" class="nav-btn"></a>
+      <a href="#" id="search" class="nav-btn">Search</a>
     </nav>
   </header>
 
@@ -87,6 +89,44 @@
       <br>
       <textarea class="description" placeholder="Description" name="description"></textarea>
       <input type="submit" value="Submit" class="post-submit">
+    </form>
+  </section>
+
+  <section class="search-form" style="display:none;">
+    <h2>Search for a post</h2>
+    <form action="/search" method="POST">
+      <input type="text" id="searchtitle" placeholder="Search Term" name="title">
+      <br>
+      <strong>Type</strong>
+      <br>
+      <input type="radio" class="type" name="type" value="none" checked="checked"> None
+      <br>
+      <input type="radio" class="type" name="type" value="tutorial"> Tutorial
+      <br>
+      <input type="radio" class="type" name="type" value="interview"> Interview
+      <br>
+      <input type="radio" class="type" name="type" value="blog"> Blog
+      <br>
+      <input type="radio" class="type" name="type" value="documentation"> Documentation
+      <br>
+      <input type="radio" class="type" name="type" value="course"> Course
+      <br>
+      <input type="radio" class="type" name="type" value="book"> Book
+      <br>
+      <strong>Subject</strong>
+      <br>
+      <input type="radio" class="subject" name="subject" value="none" checked="checked"> None
+      <br>
+      <input type="radio" class="subject" name="subject" value="web development"> Web Development
+      <br>
+      <input type="radio" class="subject" name="subject" value="mobile development"> Mobile Development
+      <br>
+      <input type="radio" class="subject" name="subject" value="machine learning"> Machine Learning
+      <br>
+      <input type="radio" class="subject" name="subject" value="blockchain"> Augmented Reality
+      <br>
+      <input type="radio" class="subject" name="subject" value="virtual reality"> Virtual Reailty
+      <input type="submit" value="Search" class="search-submit">
     </form>
   </section>
 

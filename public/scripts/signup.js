@@ -5,12 +5,14 @@ $(document).ready(function() {
       $("#login").css("display", "block");
       $("#logout").css("display", "none");
       $("#newpost").css("display", "none");
+      $("#search").css("display", "block");
     } else if (document.cookie) {
       $("#logout").css("display", "block");
       $("#newpost").css("display", "block");
       $("#signup").css("display", "none");
       $("#login").css("display", "none");
       $("#my-profile").css("display", "block");
+      $("#search").css("display", "block");
     }
   };
   // signup form
