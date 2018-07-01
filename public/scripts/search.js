@@ -32,13 +32,14 @@ $(document).ready(function() {
         subject: subject
       }
     }).then(response => {
-      $(".search-form").dialog("close");
       if (response === 0) {
+        $(".search-form").dialog("close");
         $("main").empty();
         $("main").append("<h1>Sorry No Search Results Were Found. Try Again :(</h1>");
       } else if (response === null) {
         alert("Please input something to search for");
       } else {
+        $(".search-form").dialog("close");
         // else render all the posts on a new page
         $("main").empty();
         $("main").append("<h1>Your Search Results:</h1>");

@@ -133,20 +133,20 @@
   <div id="loginform" style="background-color: lightblue; display: none">
     <form action="/login" method="post">
       <label for="username">Username</label>
-      <input id="username" type="text" name="username">
+      <input id="username" type="text" name="username" required>
       <label for="password">Password</label>
-      <input id="password" type="password" name="password">
+      <input id="password" type="password" name="password" required>
       <input type="submit" value="Login">
     </form>
   </div>
   <div id="signupform" style="background-color: lightpink; display: none">
     <form action="/register" method="post">
       <label for="email">E-Mail</label>
-      <input id="emailsignup" type="email" name="email">
+      <input id="emailsignup" type="email" name="email" required>
       <label for="username">Username</label>
-      <input id="usernamesignup" type="text" name="username">
+      <input id="usernamesignup" type="text" name="username" required>
       <label for="password">Password</label>
-      <input id="passwordsignup" type="password" name="password">
+      <input id="passwordsignup" type="password" name="password" required>
       <input type="submit" value="Register">
     </form>
   </div>
