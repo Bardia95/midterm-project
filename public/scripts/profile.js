@@ -114,9 +114,9 @@ $(document).ready(function() {
     <form action="/editprofile" method="post">
       <p>Change your password</p>
       <label for="password">Old Password</label>
-      <input id="oldpassword" type="password" name="oldpassword">
+      <input id="oldpassword" type="password" name="oldpassword" required>
       <label for="password">New Password</label>
-      <input id="newpassword" type="password" name="newpassword">
+      <input id="newpassword" type="password" name="newpassword" required>
       <input type="submit" value="submit">
     </form>
   </div>

@@ -3,12 +3,7 @@ $(document).ready(function() {
     const dialogClone = $(this)
       .clone()
       .removeClass("rendered");
-    dialogClone.dialog().dialog("open");
-    dialogClone.children("aside").css("display", "block");
-    const postID = dialogClone.data("postid");
-    renderComments(postID, dialogClone);
-
-    dialogClone.dialog({
+    var opt = dialogClone.dialog({
       autoOpen: false,
       modal: true,
       show: {
@@ -20,8 +15,12 @@ $(document).ready(function() {
         duration: 150
       },
       clickOutside: true,
-      clickOutsideTrigger: "$(this)"
+      clickOutsideTrigger: ".rendered"
     });
+    dialogClone.dialog(opt).dialog("open");
+    dialogClone.children("aside").css("display", "block");
+    const postID = dialogClone.data("postid");
+    renderComments(postID, dialogClone);
   });
 
   $("body").on("submit", ".comment-form", function(event) {
