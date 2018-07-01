@@ -62,7 +62,6 @@ $(document).ready(function() {
       data: { post_id: post_id }
     }).then(result => {
       // result is an array of comment objects
-      console.log(result);
       result.forEach(comment => {
         dialog.find(".comments").append(createCommentElement(comment));
       });
@@ -71,9 +70,9 @@ $(document).ready(function() {
 
   function createCommentElement(comment) {
     const content = comment["text"];
-    console.log(content);
+
     const username = comment["username"];
-    console.log(username);
+
     return `
         <p>${content}</p><br>
         <p>- ${username}</p>`;
