@@ -1,26 +1,26 @@
 $(document).ready(function() {
   $("body").on("click", ".rendered", function(event) {
-
-    let dialogClone = $(this).clone().removeClass('rendered');
+    const dialogClone = $(this)
+      .clone()
+      .removeClass("rendered");
     dialogClone.dialog().dialog("open");
-    dialogClone.children('aside').css("display", "block");
-    let postID = dialogClone.data("postid");
+    dialogClone.children("aside").css("display", "block");
+    const postID = dialogClone.data("postid");
     renderComments(postID, dialogClone);
 
-
     dialogClone.dialog({
-    autoOpen: false,
-    modal: true,
-    show: {
-      effect: "fade",
-      duration: 150
-    },
-    hide: {
-      effect: "fade",
-      duration: 150
-    },
-    clickOutside: true,
-    clickOutsideTrigger: "body"
+      autoOpen: false,
+      modal: true,
+      show: {
+        effect: "fade",
+        duration: 150
+      },
+      hide: {
+        effect: "fade",
+        duration: 150
+      },
+      clickOutside: true,
+      clickOutsideTrigger: "$(this)"
     });
   });
 
@@ -28,8 +28,10 @@ $(document).ready(function() {
     event.preventDefault();
     const formSubmissionData = $(event.target);
     const content = formSubmissionData.children("textarea").val();
-    const postID = $(this).parents('article').data('postid');
-    const thisDialog = $(this).parents('article');
+    const postID = $(this)
+      .parents("article")
+      .data("postid");
+    const thisDialog = $(this).parents("article");
     renderComments(postID, thisDialog);
 
     $.ajax({
@@ -50,24 +52,24 @@ $(document).ready(function() {
   // sets dialog specifications and closes dialog if clicked outside
 
   function renderComments(post_id, dialog) {
-    dialog.find('.comments').empty();
+    dialog.find(".comments").empty();
     $.ajax({
       url: "/post/comments",
       type: "POST",
-      data: {post_id: post_id}
+      data: { post_id: post_id }
     }).then(result => {
       // result is an array of comment objects
       console.log(result);
       result.forEach(comment => {
-        dialog.find('.comments').append(createCommentElement(comment));
+        dialog.find(".comments").append(createCommentElement(comment));
       });
     });
-  };
+  }
 
   function createCommentElement(comment) {
-    const content = comment['text'];
+    const content = comment["text"];
     console.log(content);
-    const username = comment['username'];
+    const username = comment["username"];
     console.log(username);
     return `
         <p>${content}</p><br>

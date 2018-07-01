@@ -296,6 +296,38 @@ module.exports = knex => {
       });
   });
 
+  // Route to Search
+  router.post("/search", (req, res) => {
+    const searchterm = req.body["searchterm"];
+    const type = req.body["type"];
+    const subject = req.body["subject"];
+    const knexQuery = userUtils.searchForPosts(searchterm, type, subject);
+    if (knexQuery) {
+      console.log("searching");
+      knexQuery
+        .then(async result => {
+          if (!result[0]) {
+            console.log("No search results");
+            res.json(0);
+          } else if (req.session["user_id"]) {
+            // if user id is defined then we need to send the liked and disliked information too
+            const uId = parseInt(req.session["user_id"]);
+            const allLikesAndDislikes = await userUtils.findAllLikesAndDislikes(uId);
+            res.json([result, allLikesAndDislikes]);
+          } else {
+            res.json([result, 0]);
+          }
+        })
+        .catch(err => {
+          console.log("this is the error");
+          console.log(err);
+        });
+    } else {
+      console.log("No search parameters");
+      res.json(null);
+    }
+  });
+
   // Rob's query code for posts by diff users
   // let query= knex('posts');
   // if (req.query.user_id) {
