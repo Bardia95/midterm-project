@@ -65,10 +65,12 @@ $(document).ready(function() {
       });
     });
   } else {
-    $("body").on("click", ".fa-chevron-up", function() {
+    $("body").on("click", ".fa-chevron-up", function(event) {
+      event.stopPropagation();
       alert("Please Login or Sign Up to like posts! :)");
     });
-    $("body").on("click", ".fa-chevron-down", function() {
+    $("body").on("click", ".fa-chevron-down", function(event) {
+      event.stopPropagation();
       alert("Please Login or Sign Up to dislike posts! :)");
     });
   }

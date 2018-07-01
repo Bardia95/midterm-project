@@ -43,8 +43,6 @@ $(document).ready(function() {
         $("main").empty();
         $("main").append("<h1>Your Search Results:</h1>");
         $("main").append('<section class="posts-container"></section>');
-        console.log(response[0]);
-
         response[0].forEach(post => {
           $(".posts-container").append(createPostElement(post, response[1]));
         });
