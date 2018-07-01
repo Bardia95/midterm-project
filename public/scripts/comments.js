@@ -33,6 +33,10 @@ $(document).ready(function() {
       .data("postid");
     const thisDialog = $(this).parents("article");
     renderComments(postID, thisDialog);
+    if (content === "" || content === " ") {
+      alert("Please input valid comment");
+      return;
+    }
 
     $.ajax({
       url: "/post/comment",
