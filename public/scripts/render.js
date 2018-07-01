@@ -10,8 +10,6 @@ $(document).ready(function() {
       url: "/render",
       type: "GET"
     }).then(result => {
-      console.log(result[0]);
-
       // result[0] is all the posts, result[1] are all liked and dislikes
       result[0].forEach(post => {
         $("main").prepend(createPostElement(post, result[1]));

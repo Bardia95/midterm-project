@@ -19,16 +19,17 @@ module.exports = knex => {
       .loginAuthentication(username, password)
       .then(result => {
         // result is the user id
-        console.log(result);
         req.session["user_id"] = result;
         jwt.sign({ user_id: result }, "secretkey", (err, token) => {
           // sends the token
           res.cookie("token", token);
-          res.send(true);
+          res.json(result);
         });
       })
       .catch(err => {
-        res.send(err);
+        console.log(err);
+
+        res.json(err);
       });
   });
 
