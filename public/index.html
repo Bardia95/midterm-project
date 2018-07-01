@@ -58,12 +58,12 @@
   <section class="new-post" style="display:none;">
     <h2>New Post</h2>
     <form action="/posts" method="POST" class="post-form">
-      <input type="text" id="title" placeholder="Title" name="title">
-      <input id="URL" type="text" placeholder="https://coursera.org/" name="url">
+      <input type="text" id="title" placeholder="Title" name="title" required>
+      <input id="URL" type="text" placeholder="https://coursera.org/" name="url" required>
       <br>
       <strong>Type</strong>
       <br>
-      <input type="radio" class="type" name="type" value="tutorial"> Tutorial
+      <input type="radio" class="type" name="type" value="tutorial" required> Tutorial
       <br>
       <input type="radio" class="type" name="type" value="interview"> Interview
       <br>
@@ -77,7 +77,7 @@
       <br>
       <strong>Subject</strong>
       <br>
-      <input type="radio" class="subject" name="subject" value="web development"> Web Development
+      <input type="radio" class="subject" name="subject" value="web development" required> Web Development
       <br>
       <input type="radio" class="subject" name="subject" value="mobile development"> Mobile Development
       <br>
@@ -87,7 +87,7 @@
       <br>
       <input type="radio" class="subject" name="subject" value="virtual reality"> Virtual Reailty
       <br>
-      <textarea class="description" placeholder="Description" name="description"></textarea>
+      <textarea class="description" placeholder="Description" name="description" required></textarea>
       <input type="submit" value="Submit" class="post-submit">
     </form>
   </section>
