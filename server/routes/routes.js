@@ -77,6 +77,7 @@ module.exports = knex => {
     const content = req.body.content;
     const postID = req.body.post_id;
     const uId = parseInt(req.session["user_id"]);
+    console.log("wtfwtf")
     // const comment_id =
     knex("comments")
       .insert({

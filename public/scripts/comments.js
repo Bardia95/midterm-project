@@ -63,6 +63,7 @@ $(document).ready(function() {
   };
 
   $("body").on("submit", ".comment-form", function(event) {
+    event.stopImmediatePropagation();
     event.preventDefault();
     const formSubmissionData = $(event.target);
     const content = formSubmissionData.children("textarea").val();
@@ -70,7 +71,6 @@ $(document).ready(function() {
       .parents("article")
       .data("postid");
     const thisDialog = $(this).parents("article");
-    renderComments(postID, thisDialog);
     if (content === "" || content === " ") {
       alert("Please input valid comment");
       return;
@@ -86,6 +86,7 @@ $(document).ready(function() {
     }).then(function(response) {
       if (response) {
         $("comments").data("");
+        renderComments(postID, thisDialog);
       } else {
         window.alert("Invalid Comment");
       }
@@ -101,6 +102,7 @@ $(document).ready(function() {
       data: { post_id: post_id }
     }).then(result => {
       // result is an array of comment objects
+      console.log(result);
       result.forEach(comment => {
         dialog.find(".comments").append(createCommentElement(comment));
       });
