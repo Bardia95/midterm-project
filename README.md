@@ -1,6 +1,6 @@
 # DevStash
 
-Pinterest for Developers who love to learn
+Pinterest for Developers who love to learn.
 
 ## Getting Started
 
@@ -12,8 +12,9 @@ Pinterest for Developers who love to learn
   - Check the migrations folder to see what gets created in the DB
 6. Run the seed: `npm run knex seed:run`
   - Check the seeds file to see what gets seeded in the DB
-7. Run the server: `npm run local`
-8. Visit `http://localhost:8080/`
+7. If there are any problems with the seed: `npm run knex migrate:rollback`
+8. Run the server: `npm run local`
+9. Visit `http://localhost:8080/`
 
 ## Dependencies
 
@@ -38,6 +39,8 @@ Pinterest for Developers who love to learn
 ## Screenshots
 
 # Home Page
+
+
 
 # Login Form
 
