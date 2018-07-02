@@ -38,11 +38,9 @@ Pinterest for Developers who love to learn.
 
 ## Screenshots
 
-# Home Page
-
-
-
-# Login Form
+!["Screenshot of home page"](https://github.com/Bardia95/midterm-project/blob/master/docs/Homepage%20Screenshot.png)
+!["Screenshot of My Profile / Likes"](https://github.com/Bardia95/midterm-project/blob/master/docs/My%20Profile%20and%20Likes.png)
+!["Screenshot of new post form"](https://github.com/Bardia95/midterm-project/blob/master/docs/New%20Post%20Form.png)
 
 
 
