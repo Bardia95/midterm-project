@@ -2,7 +2,7 @@ $(document).ready(function() {
   // check if user is logged in with cookie
   if (document.cookie) {
     $("body").on("click", ".fa-chevron-up", function(event) {
-      event.stopPropagation();
+      event.stopImmediatePropagation();
       const $upArrow = $(this);
       const $downArrow = $(this).siblings("i");
       const $postID = $(this)
@@ -35,7 +35,7 @@ $(document).ready(function() {
     });
     // same code dislikes
     $("body").on("click", ".fa-chevron-down", function(event) {
-      event.stopPropagation();
+      event.stopImmediatePropagation();
       const $downArrow = $(this);
       const $upArrow = $(this).siblings("i");
       const $postID = $(this)
@@ -66,11 +66,11 @@ $(document).ready(function() {
     });
   } else {
     $("body").on("click", ".fa-chevron-up", function(event) {
-      event.stopPropagation();
+      event.stopImmediatePropagation();
       alert("Please Login or Sign Up to like posts! :)");
     });
     $("body").on("click", ".fa-chevron-down", function(event) {
-      event.stopPropagation();
+      event.stopImmediatePropagation();
       alert("Please Login or Sign Up to dislike posts! :)");
     });
   }
