@@ -115,8 +115,11 @@ $(document).ready(function() {
     const username = comment["username"];
 
     return `
+      <div class="individual-comment">
         <p>${content}</p><br>
-        <p>- ${username}</p>`;
+        <p><strong>- ${username}</strong></p><br>
+      </div>`
+      ;
   }
 });
 });

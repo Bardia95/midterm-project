@@ -59,7 +59,7 @@ $(document).ready(function() {
       </div>
       <div class="comments-form">
         <form action="/post/comment" method="POST" class="comment-form">
-          <textarea placeholder="comment" name="content"></textarea>
+          <textarea placeholder="Comment" name="content"></textarea>
           <input type="submit" name="comment-submit" class="comment-submit">
         </form>
       </div>
