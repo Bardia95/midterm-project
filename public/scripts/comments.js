@@ -90,41 +90,41 @@ $(document).ready(function() {
       }).then(function(response) {
         if (response) {
           $("comments").data("");
-          $(".comment-form").find('textarea').val('');
+          $(".comment-form")
+            .find("textarea")
+            .val("");
           renderComments(postID, thisDialog);
         } else {
           window.alert("Invalid Comment");
         }
       });
     });
-  };
+  });
 
-
-    function renderComments(post_id, dialog) {
-      dialog.find(".comments").empty();
-      $.ajax({
-        url: "/post/comment/render",
-        type: "POST",
-        data: { post_id: post_id }
-      }).then(result => {
-        // result is an array of comment objects
-        console.log(result);
-        result.forEach(comment => {
-          dialog.find(".comments").append(createCommentElement(comment));
-        });
+  function renderComments(post_id, dialog) {
+    dialog.find(".comments").empty();
+    $.ajax({
+      url: "/post/comment/render",
+      type: "POST",
+      data: { post_id: post_id }
+    }).then(result => {
+      // result is an array of comment objects
+      console.log(result);
+      result.forEach(comment => {
+        dialog.find(".comments").append(createCommentElement(comment));
       });
-    }
+    });
+  }
 
-    function createCommentElement(comment) {
-      const content = comment["text"];
+  function createCommentElement(comment) {
+    const content = comment["text"];
 
-      const username = comment["username"];
+    const username = comment["username"];
 
-      return `
+    return `
       <div class="individual-comment">
         <p>${content}</p><br>
         <p><strong>- ${username}</strong></p><br>
       </div>`;
-    }
-  });
+  }
 });
