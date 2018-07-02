@@ -73,7 +73,7 @@ module.exports = knex => {
       });
   });
 
-  router.post("/post/comment", (req, res) => {
+  router.post("/post/comment/submit", (req, res) => {
     const content = req.body.content;
     const postID = req.body.post_id;
     const uId = parseInt(req.session["user_id"]);
@@ -90,7 +90,7 @@ module.exports = knex => {
       });
   });
 
-  router.post("/post/comments", (req, res) => {
+  router.post("/post/comment/render", (req, res) => {
     const postComments = knex("comments")
       .select("text", "username")
       .join("users", { "comments.user_id": "users.id" })

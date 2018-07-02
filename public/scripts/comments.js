@@ -7,7 +7,7 @@ $(document).ready(function() {
     var opt = dialogClone.dialog({
       autoOpen: false,
       modal: true,
-      dialogClass: 'noTitleStuff',
+      dialogClass: "noTitleStuff",
       show: {
         effect: "fade",
         duration: 150
@@ -28,98 +28,97 @@ $(document).ready(function() {
     renderComments(postID, dialogClone);
 
     if (document.cookie) {
-    $("body").on("click", ".fa-chevron-up", function(event) {
-      event.stopPropagation();
-      const $upArrow = $(this);
-      const $downArrow = $(this).siblings("i");
-      const $postID = $(this)
+      $("body").on("click", ".fa-chevron-up", function(event) {
+        event.stopPropagation();
+        const $upArrow = $(this);
+        const $downArrow = $(this).siblings("i");
+        const $postID = $(this)
+          .parents("article")
+          .data("postid");
+
+        // when clicked do ajax request
+        $.ajax({
+          url: "/like",
+          type: "PUT",
+          data: { post_id: $postID }
+        }).then(function(response) {
+          // if response is 1, it has never been liked, if reponse is 2 it was disliked before now liked, if response is 3, it is already liked
+          if (response === 1) {
+            $downArrow.removeClass("disliked");
+            $upArrow.addClass("liked");
+            var currentLike = parseInt($upArrow.siblings("p").text(), 10);
+            // adds one to the currentlike
+            $upArrow.siblings("p").text(currentLike + 1);
+          } else if (response === 2) {
+            $downArrow.removeClass("disliked");
+            $upArrow.addClass("liked");
+            var currentLike = parseInt($upArrow.siblings("p").text(), 10);
+            // adds two to the currentlike
+            $upArrow.siblings("p").text(currentLike + 2);
+          } else if (response === 3) {
+            console.log("You've already liked this post");
+          }
+        });
+      });
+    }
+
+    $("body").on("submit", ".comment-form", function(event) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+      const formSubmissionData = $(event.target);
+      const content = formSubmissionData.children("textarea").val();
+      const postID = $(this)
         .parents("article")
         .data("postid");
+      const thisDialog = $(this).parents("article");
+      if (content === "" || content === " ") {
+        alert("Please input valid comment");
+        return;
+      }
 
-      // when clicked do ajax request
       $.ajax({
-        url: "/like",
-        type: "PUT",
-        data: { post_id: $postID }
+        url: "/post/comment/submit",
+        type: "POST",
+        data: {
+          content: content,
+          post_id: postID
+        }
       }).then(function(response) {
-        // if response is 1, it has never been liked, if reponse is 2 it was disliked before now liked, if response is 3, it is already liked
-        if (response === 1) {
-          $downArrow.removeClass("disliked");
-          $upArrow.addClass("liked");
-          var currentLike = parseInt($upArrow.siblings("p").text(), 10);
-          // adds one to the currentlike
-          $upArrow.siblings("p").text(currentLike + 1);
-        } else if (response === 2) {
-          $downArrow.removeClass("disliked");
-          $upArrow.addClass("liked");
-          var currentLike = parseInt($upArrow.siblings("p").text(), 10);
-          // adds two to the currentlike
-          $upArrow.siblings("p").text(currentLike + 2);
-        } else if (response === 3) {
-          console.log("You've already liked this post");
+        if (response) {
+          $("comments").data("");
+          renderComments(postID, thisDialog);
+        } else {
+          window.alert("Invalid Comment");
         }
       });
     });
-  };
+    // sets dialog specifications and closes dialog if clicked outside
 
-  $("body").on("submit", ".comment-form", function(event) {
-    event.stopImmediatePropagation();
-    event.preventDefault();
-    const formSubmissionData = $(event.target);
-    const content = formSubmissionData.children("textarea").val();
-    const postID = $(this)
-      .parents("article")
-      .data("postid");
-    const thisDialog = $(this).parents("article");
-    if (content === "" || content === " ") {
-      alert("Please input valid comment");
-      return;
+    function renderComments(post_id, dialog) {
+      dialog.find(".comments").empty();
+      $.ajax({
+        url: "/post/comment/render",
+        type: "POST",
+        data: { post_id: post_id }
+      }).then(result => {
+        // result is an array of comment objects
+        console.log(result);
+        result.forEach(comment => {
+          dialog.find(".comments").append(createCommentElement(comment));
+        });
+      });
     }
 
-    $.ajax({
-      url: "/post/comment",
-      type: "POST",
-      data: {
-        content: content,
-        post_id: postID
-      }
-    }).then(function(response) {
-      if (response) {
-        $("comments").data("");
-        renderComments(postID, thisDialog);
-      } else {
-        window.alert("Invalid Comment");
-      }
-    });
-  });
-  // sets dialog specifications and closes dialog if clicked outside
+    function createCommentElement(comment) {
+      const content = comment["text"];
 
-  function renderComments(post_id, dialog) {
-    dialog.find(".comments").empty();
-    $.ajax({
-      url: "/post/comments",
-      type: "POST",
-      data: { post_id: post_id }
-    }).then(result => {
-      // result is an array of comment objects
-      console.log(result);
-      result.forEach(comment => {
-        dialog.find(".comments").append(createCommentElement(comment));
-      });
-    });
-  }
+      const username = comment["username"];
 
-  function createCommentElement(comment) {
-    const content = comment["text"];
-
-    const username = comment["username"];
-
-    return `
+      return `
       <div class="individual-comment">
         <p>${content}</p><br>
         <p><strong>- ${username}</strong></p><br>
-      </div>`
-      ;
-  }
-});
+      </div>`;
+    }
+  });
 });
