@@ -21,6 +21,7 @@ $(document).ready(function() {
   $("#loginform").dialog({
     autoOpen: false,
     modal: true,
+    dialogClass: 'noTitleStuff',
     show: {
       effect: "fade",
       duration: 150

@@ -1,23 +1,27 @@
+$lightgrey: #e8e8e8;
+$darkgrey: #202020;
+$medgrey: #787878;
+$white: #FFFFFF;
+$black: #080808;
+$gold: gold;
 $red: #fc4444;
-$blue1: #3feee6;
-$blue2: #55bcc9;
-$blue3: #97caef;
-$blue4: #cafafe;
+$turq: #2DE1C2;
 
 body {
-  background-color: $red;
+  background-color: $darkgrey;
   font-family: "Roboto", sans-serif;
+  color: $white;
 }
 /* The navigation bar */
 nav {
   overflow: hidden;
-  background-color: $blue1;
+  background-color: $turq;
   position: fixed;
   width: 100%;
   top: 0;
   a {
     display: block;
-    color: black;
+    color: $white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -28,7 +32,7 @@ nav {
     margin-right: 10px;
     display: none;
     &:hover {
-      background: $red;
+      background: $medgrey;
       -webkit-border-radius: 10px;
       border-radius: 10px;
     }
@@ -80,11 +84,20 @@ main {
     flex-direction: column;
     header {
       flex-grow: 1;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-top: 100px;
     }
-    .post-description {
-    }
+    &:hover footer {
+        display: flex;
+        -webkit-border-bottom-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+            -webkit-border-bottom-left-radius: 10px;
+                    border-bottom-left-radius: 10px;
+      }
     footer {
-      display: flex;
+      display: none;
+      background: $medgrey;
       flex-wrap: wrap;
       justify-content: space-between;
       .timeposted {
@@ -98,17 +111,34 @@ main {
           color: gold;
         }
         .disliked {
-          color: red;
+          color: $red;
         }
         .fa-chevron-up:hover {
-          color: gold;
+          color: $gold;
         }
         .fa-chevron-down:hover {
-          color: red;
+          color: $red;
         }
       }
     }
   }
+}
+
+.dialogIsOpen {
+  display: flex;
+  flex-wrap: wrap;
+  header {
+    display: flex;
+    justify-content: flex-start;
+  }
+  footer {
+    display: hidden;
+  }
+  aside {
+    display: flex;
+    justify-content: flex-end;
+  }
+
 }
 
 .new-post {
@@ -117,10 +147,10 @@ main {
     margin-bottom: -5px;
   }
   border-radius: 15px;
-  background: $blue3;
+  background: $medgrey;
   width: 50%;
   overflow: auto;
-  color: black;
+  color: white;
   form {
     margin: auto;
     text-align: center;
@@ -143,8 +173,8 @@ main {
   .post-submit {
     text-align: center;
     margin-bottom: 10px;
-    background-color: $red;
-    color: $blue1;
+    background-color: $lightgrey;
+    color: $black;
     height: 25px;
     width: 80px;
     border: 0px;
@@ -155,8 +185,8 @@ main {
     &:hover {
       -webkit-border-radius: 10px;
       border-radius: 10px;
-      background-color: $blue1;
-      color: $red;
+      background-color: $black;
+      color: $lightgrey;
     }
   }
 }
@@ -165,17 +195,21 @@ main {
   text-align: center;
   min-height: 300px;
   min-width: 300px;
-  background: $blue2;
+  background: $turq;
+  color: $white;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   aside {
     display: none;
   }
+  .post-description {
+    display: none;
+  }
   .comment-submit {
     text-align: center;
     margin-bottom: 10px;
-    background-color: $blue1;
-    color: $red;
+    background-color: $darkgrey;
+    color: $white;
     height: 25px;
     width: 80px;
     border: 0px;
@@ -186,8 +220,8 @@ main {
     &:hover {
       -webkit-border-radius: 10px;
       border-radius: 10px;
-      background-color: $red;
-      color: $blue1;
+      background-color: $white;
+      color: $darkgrey;
     }
   }
   textarea {
@@ -204,9 +238,6 @@ main {
   }
 }
 
-.toggle-profile {
-  display: hidden;
-}
 
 //search form css
 .search-form {
@@ -215,7 +246,7 @@ main {
     margin-bottom: -5px;
   }
   border-radius: 15px;
-  background: $blue3;
+  background: $medgrey;
   width: 50%;
   overflow: auto;
   color: black;
@@ -241,8 +272,8 @@ main {
   .search-submit {
     text-align: center;
     margin-bottom: 10px;
-    background-color: $red;
-    color: $blue1;
+    background-color: $turq;
+    color: $white;
     height: 25px;
     width: 80px;
     border: 0px;
@@ -253,8 +284,34 @@ main {
     &:hover {
       -webkit-border-radius: 10px;
       border-radius: 10px;
-      background-color: $blue1;
-      color: $red;
+      background-color: $white;
+      color: $turq;
     }
   }
 }
+
+.modal {
+  display: none;
+}
+
+#edit-info-button {
+   text-align: center;
+    margin-bottom: 10px;
+    background-color: $white;
+    color: $darkgrey;
+    height: 60px;
+    width: 120px;
+    border: 0px;
+    cursor: pointer;
+    margin-top: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    &:hover {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background-color: $medgrey;
+      color: $white;
+    }
+}
+
+

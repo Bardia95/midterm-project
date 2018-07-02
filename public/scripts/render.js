@@ -37,10 +37,10 @@ $(document).ready(function() {
     return ` <article class='post rendered' data-postid=${postID}>
     <header>
       <h2>${postTitle}</h1>
+      <div class="post-description">
+        <p>${postDescription}</p>
+      </div>
     </header>
-    <div class="post-description">
-      <p>${postDescription}</p>
-    </div>
     <footer>
       <div class='timeposted'>
         <p>${moment(postDate).fromNow()}</p>

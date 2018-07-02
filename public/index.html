@@ -43,7 +43,7 @@
       <a href="#" id="logout" class="nav-btn">Log Out</a>
       <a href="#" id="login" class="nav-btn">Log In</a>
       <a href="#" id="signup" class="nav-btn">Sign Up</a>
-      <a href="#" id="my-profile" class="nav-btn"></a>
+      <a href="#" id="my-profile" class="nav-btn own-posts"></a>
       <a href="#" id="search" class="nav-btn">Search</a>
     </nav>
   </header>
@@ -130,7 +130,7 @@
     </form>
   </section>
 
-  <div id="loginform" style="background-color: lightblue; display: none">
+  <div id="loginform" class="modal">
     <form action="/login" method="post">
       <label for="username">Username</label>
       <input id="username" type="text" name="username" required>
@@ -139,7 +139,7 @@
       <input type="submit" value="Login">
     </form>
   </div>
-  <div id="signupform" style="background-color: lightpink; display: none">
+  <div id="signupform" class="modal">
     <form action="/register" method="post">
       <label for="email">E-Mail</label>
       <input id="emailsignup" type="email" name="email" required>

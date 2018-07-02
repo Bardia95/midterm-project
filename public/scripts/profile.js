@@ -1,9 +1,5 @@
 $(document).ready(function() {
-  $("#my-profile").on("click", function() {
-    renderOwnPosts();
-    $(".toggle-profile").css("display", "block");
-  });
-  $("body").on("click", ".toggle-profile", function() {
+  $("body").on("click", "#my-profile", function() {
     if ($(this).hasClass("own-posts")) {
       renderOwnPosts();
       $(this)
@@ -15,7 +11,7 @@ $(document).ready(function() {
       $(this)
         .removeClass("liked-posts")
         .addClass("own-posts")
-        .html("Your Posts");
+        .html("My Profile");
     }
   });
   function renderLikedPosts() {
@@ -27,7 +23,7 @@ $(document).ready(function() {
       type: "GET"
     }).then(result => {
       $("main").append(createProfileHeader(result[2]));
-      $("main").append('<section class="posts-container"></section>');
+      $("main").append('<h1>Liked Posts</h1><section class="posts-container"></section>');
       // result is an array of post objects
       result[0].forEach(post => {
         $(".posts-container").append(createPostElement(post, result[1]));
@@ -44,7 +40,7 @@ $(document).ready(function() {
       type: "GET"
     }).then(result => {
       $("main").append(createProfileHeader(result[2]));
-      $("main").append('<section class="posts-container"></section>');
+      $("main").append('<h1>Your Posts</h1><section class="posts-container"></section>');
       // result is an array of post objects
       result[0].forEach(post => {
         $(".posts-container").append(createPostElement(post, result[1]));
@@ -71,10 +67,10 @@ $(document).ready(function() {
     return ` <article class='post rendered' data-postid=${postID}>
     <header>
       <h2>${postTitle}</h1>
+      <div class="post-description">
+        <p>${postDescription}</p>
+      </div>
     </header>
-    <div class="post-description">
-      <p>${postDescription}</p>
-    </div>
     <footer>
       <div class='timeposted'>
         <p>${moment(postDate).fromNow()}</p>
@@ -107,7 +103,6 @@ $(document).ready(function() {
       <img src="https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/83/30/7b/83307ba6-ad08-463e-e4aa-401d112ec5ac/source/1200x630bb.jpg" alt="profile-picture" height="200" width="200">
       <h1>Hello ${username}</h1>
       <button type="button" id="edit-info-button">Change Password</button>
-      <h2>Your Posts</h2>
     </div>
     <aside>
     <div id="editprofile" style="background-color: lightgreen; display: none">

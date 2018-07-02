@@ -4,6 +4,7 @@ $(document).ready(function() {
     var opt = $("#editprofile").dialog({
       autoOpen: false,
       modal: true,
+      dialogClass: 'noTitleStuff',
       show: {
         effect: "fade",
         duration: 150

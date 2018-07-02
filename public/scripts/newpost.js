@@ -7,6 +7,7 @@ $(document).ready(function() {
   $(".new-post").dialog({
     autoOpen: false,
     modal: true,
+    dialogClass: 'noTitleStuff',
     show: {
       effect: "fade",
       duration: 150
