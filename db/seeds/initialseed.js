@@ -1,4 +1,7 @@
 exports.seed = function(knex, Promise) {
+  function deleteLikeDislike() {
+    return knex("like_dislike").del();
+  }
   function deleteDownvotes() {
     return knex("downvotes").del();
   }
@@ -20,9 +23,21 @@ exports.seed = function(knex, Promise) {
   function insertUsers() {
     return knex("users")
       .insert([
-        { email: "tommy@example.com", password: "123", username: "tommy" },
-        { email: "bardia@example.com", password: "123", username: "bardia" },
-        { email: "farid@example.com", password: "123", username: "farid" }
+        {
+          email: "tommy@example.com",
+          password: "$2a$10$qp0wTG4JCz6e0jMlwLYjVuiK9.04F3sSyIOm5EayYGUXzgnAstET6",
+          username: "tommy"
+        },
+        {
+          email: "bardia@example.com",
+          password: "$2a$10$qp0wTG4JCz6e0jMlwLYjVuiK9.04F3sSyIOm5EayYGUXzgnAstET6",
+          username: "bardia"
+        },
+        {
+          email: "farid@example.com",
+          password: "$2a$10$qp0wTG4JCz6e0jMlwLYjVuiK9.04F3sSyIOm5EayYGUXzgnAstET6",
+          username: "farid"
+        }
       ])
       .returning("*");
   }
@@ -30,112 +45,79 @@ exports.seed = function(knex, Promise) {
     return knex("posts")
       .insert([
         {
-          title: "Cool Trance Song",
-          description: "yo this song is blessed",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-03-25",
-          subject: "music",
-          type: "link",
+          title: "Great Bootcamp",
+          description: "Awesome Developer Bootcamp",
+          url: "https://www.lighthouselabs.ca",
+          date_posted: "2018-06-29",
+          subject: "web development",
+          type: "course",
+          user_id: users[0].id,
+          likes_count: 1
+        },
+        {
+          title: "Promises Tutorial",
+          description: "Great introduction to promises",
+          url: "https://www.youtube.com/watch?v=QO4NXhWo_NM",
+          date_posted: "2018-06-29",
+          subject: "web development",
+          type: "tutorial",
+          user_id: users[0].id,
+          likes_count: -1
+        },
+        {
+          title: "Article about virtual reality",
+          description: "Great introduction to virtual reality",
+          url: "https://www.vrs.org.uk/virtual-reality/what-is-virtual-reality.html",
+          date_posted: "2018-06-29",
+          subject: "virtual reality",
+          type: "blog",
+          user_id: users[0].id,
+          likes_count: 1
+        },
+        {
+          title: "iOS Development For Beginners",
+          description: "Great blogpost for iOS development",
+          url: "https://lifehacker.com/i-want-to-write-ios-apps-where-do-i-start-1644802175",
+          date_posted: "2018-06-30",
+          subject: "mobile development",
+          type: "blog",
           user_id: users[0].id
         },
         {
-          title: "Cool Trance Song",
-          description: "yo this song is blessed",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-03-25",
-          subject: "music",
-          type: "link",
-          user_id: users[0].id
-        },
-        {
-          title: "Cool Trance Song",
-          description: "yo this song is blessed",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-03-25",
-          subject: "music",
-          type: "link",
-          user_id: users[0].id
-        },
-        {
-          title: "Cool Trance Song",
-          description: "yo this song is blessed",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-03-25",
-          subject: "music",
-          type: "link",
-          user_id: users[0].id
-        },
-        {
-          title: "Math Solution",
-          description: "this is a cool way to multiply stuff together",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-06-25",
-          subject: "math",
-          type: "image",
+          title: "Recursion tutorial",
+          description: "Learn about Recursion here",
+          url: "https://www.geeksforgeeks.org/recursion/",
+          date_posted: "2018-06-30",
+          subject: "web development",
+          type: "tutorial",
           user_id: users[1].id
         },
         {
-          title: "Math Solution",
-          description: "this is a cool way to multiply stuff together",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-06-25",
-          subject: "math",
-          type: "image",
+          title: "React Native!",
+          description: "This is a great resource",
+          url: "https://facebook.github.io/react-native",
+          date_posted: "2018-06-30",
+          subject: "mobile development",
+          type: "documentation",
           user_id: users[1].id
         },
         {
-          title: "Math Solution",
-          description: "this is a cool way to multiply stuff together",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-06-25",
-          subject: "math",
-          type: "image",
+          title: "PHP documentation",
+          description: "this is cool",
+          url: "http://php.net/docs.php",
+          date_posted: "2018-07-01",
+          subject: "web development",
+          type: "documentation",
           user_id: users[1].id
         },
         {
-          title: "Math Solution",
-          description: "this is a cool way to multiply stuff together",
+          title: "Flex Box Tutorial",
+          description: "Great resource for using flex box",
           url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-06-25",
-          subject: "math",
-          type: "image",
+          date_posted: "2018-07-02",
+          subject: "documentation",
+          type: "web development",
           user_id: users[1].id
-        },
-        {
-          title: "Cool Video",
-          description: "yo this video is sick fam!",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-06-29",
-          subject: "cars",
-          type: "video",
-          user_id: users[2].id
-        },
-        {
-          title: "Cool Video",
-          description: "yo this video is sick fam!",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-06-29",
-          subject: "cars",
-          type: "video",
-          user_id: users[2].id
-        },
-        {
-          title: "Cool Video",
-          description: "yo this video is sick fam!",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-06-29",
-          subject: "cars",
-          type: "video",
-          user_id: users[2].id
-        },
-        {
-          title: "Cool Video",
-          description: "yo this video is sick fam!",
-          url: "https://soundcloud.com/coldblue/cold-blue-rush-kearnage",
-          date_posted: "2018-06-29",
-          subject: "cars",
-          type: "video",
-          user_id: users[2].id
         }
       ])
       .returning("*");
@@ -143,50 +125,43 @@ exports.seed = function(knex, Promise) {
 
   function insertComments() {
     return knex("comments").insert([
-      { text: "comment 1 yeah eh", date: "2018-06-30", user_id: 1 },
-      { text: "comment 2 yoooo sick", date: "2018-06-30", user_id: 2 },
-      { text: "comment 3 brooooo", date: "2018-06-30", user_id: 3 }
+      {
+        text: "Great Stuff!",
+        date: "2018-07-01",
+        user_id: 1,
+        post_id: 4
+      },
+      {
+        text: "Very Helpful",
+        date: "2018-07-01",
+        user_id: 2,
+        post_id: 5
+      },
+      {
+        text: "Amazing",
+        date: "2018-07-01",
+        user_id: 3,
+        post_id: 3
+      }
     ]);
   }
 
-  function insertCommentsPost() {
-    return knex("comments_posts").insert([
-      { comment_id: 1, post_id: 1 },
-      { comment_id: 2, post_id: 2 },
-      { comment_id: 3, post_id: 3 },
-      { comment_id: 3, post_id: 4 },
-      { comment_id: 1, post_id: 6 },
-      { comment_id: 2, post_id: 6 },
-      { comment_id: 3, post_id: 6 },
-      { comment_id: 1, post_id: 1 },
-      { comment_id: 2, post_id: 2 },
-      { comment_id: 3, post_id: 10 },
-      { comment_id: 1, post_id: 11 },
-      { comment_id: 2, post_id: 12 }
+  function insertCommentsPost() {}
+
+  function insertUpvotes() {}
+
+  function insertDownvotes() {}
+
+  function insertLikeDislike() {
+    return knex("like_dislike").insert([
+      { post_id: 1, user_id: 1, like_or_dislike: true },
+      { post_id: 2, user_id: 2, like_or_dislike: false },
+      { post_id: 3, user_id: 3, like_or_dislike: true }
     ]);
   }
 
-  function insertUpvotes() {
-    return knex("upvotes").insert([
-      { post_id: 1, user_id: 1 },
-      { post_id: 1, user_id: 2 },
-      { post_id: 2, user_id: 1 },
-      { post_id: 3, user_id: 1 },
-      { post_id: 3, user_id: 2 }
-    ]);
-  }
-
-  function insertDownvotes() {
-    return knex("downvotes").insert([
-      { post_id: 1, user_id: 3 },
-      { post_id: 1, user_id: 3 },
-      { post_id: 2, user_id: 3 },
-      { post_id: 3, user_id: 3 },
-      { post_id: 3, user_id: 3 }
-    ]);
-  }
-
-  return deleteDownvotes()
+  return deleteLikeDislike()
+    .then(deleteDownvotes)
     .then(deleteUpvotes)
     .then(deletePostComments)
     .then(deleteComments)
@@ -195,7 +170,5 @@ exports.seed = function(knex, Promise) {
     .then(insertUsers)
     .then(users => insertPosts(users))
     .then(insertComments)
-    .then(insertCommentsPost)
-    .then(insertUpvotes)
-    .then(insertDownvotes);
+    .then(insertLikeDislike);
 };
