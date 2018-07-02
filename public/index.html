@@ -131,15 +131,17 @@
   </section>
 
   <div id="loginform" class="modal">
+    <h2>Log In</h2>
     <form action="/login" method="post">
       <label for="username">Username</label>
       <input id="username" type="text" name="username" required>
       <label for="password">Password</label>
       <input id="password" type="password" name="password" required>
-      <input type="submit" value="Login">
+      <input type="submit" value="Login" class="login-submit">
     </form>
   </div>
   <div id="signupform" class="modal">
+    <h2>Sign Up</h2>
     <form action="/register" method="post">
       <label for="email">E-Mail</label>
       <input id="emailsignup" type="email" name="email" required>
@@ -147,7 +149,7 @@
       <input id="usernamesignup" type="text" name="username" required>
       <label for="password">Password</label>
       <input id="passwordsignup" type="password" name="password" required>
-      <input type="submit" value="Register">
+      <input type="submit" value="Sign Up" class="signup-submit">
     </form>
   </div>
 

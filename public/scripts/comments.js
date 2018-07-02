@@ -2,10 +2,12 @@ $(document).ready(function() {
   $("body").on("click", ".rendered", function(event) {
     const dialogClone = $(this)
       .clone()
-      .removeClass("rendered");
+      .removeClass("rendered")
+      .attr("id", "dialogIsOpen");
     var opt = dialogClone.dialog({
       autoOpen: false,
       modal: true,
+      dialogClass: 'noTitleStuff',
       show: {
         effect: "fade",
         duration: 150

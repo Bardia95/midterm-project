@@ -23,6 +23,7 @@ $(document).ready(function() {
   $("#signupform").dialog({
     autoOpen: false,
     modal: true,
+    dialogClass: 'noTitleStuff',
     show: {
       effect: "fade",
       duration: 150

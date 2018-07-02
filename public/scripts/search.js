@@ -5,6 +5,7 @@ $(document).ready(function() {
   $(".search-form").dialog({
     autoOpen: false,
     modal: true,
+    dialogClass: 'noTitleStuff',
     show: {
       effect: "fade",
       duration: 150
