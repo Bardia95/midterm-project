@@ -86,6 +86,7 @@ $(document).ready(function() {
     }).then(function(response) {
       if (response) {
         $("comments").data("");
+        $(".comment-form").find('textarea').val('');
         renderComments(postID, thisDialog);
       } else {
         window.alert("Invalid Comment");
