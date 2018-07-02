@@ -71,6 +71,10 @@ $(document).ready(function() {
         .parents("article")
         .data("postid");
       const thisDialog = $(this).parents("article");
+      if (!document.cookie) {
+        alert("Please Login To Comment");
+        return;
+      }
       if (content === "" || content === " ") {
         alert("Please input valid comment");
         return;
