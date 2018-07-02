@@ -19,16 +19,17 @@ module.exports = knex => {
       .loginAuthentication(username, password)
       .then(result => {
         // result is the user id
-        console.log(result);
         req.session["user_id"] = result;
         jwt.sign({ user_id: result }, "secretkey", (err, token) => {
           // sends the token
           res.cookie("token", token);
-          res.send(true);
+          res.json(result);
         });
       })
       .catch(err => {
-        res.send(err);
+        console.log(err);
+
+        res.json(err);
       });
   });
 
@@ -110,7 +111,7 @@ module.exports = knex => {
     // if user isnt logged in just render all posts
     if (req.headers["cookie"] === undefined) {
       try {
-        const allPosts = await knex("posts");
+        const allPosts = await knex("posts").orderBy("date_posted");
         res.json([allPosts, 0]);
         return;
       } catch (err) {
@@ -122,7 +123,7 @@ module.exports = knex => {
       const decodedToken = jwt.verify(token, "secretkey");
       console.log(decodedToken);
       try {
-        const allPosts = await knex("posts");
+        const allPosts = await knex("posts").orderBy("date_posted");
         const allLikesAndDislikes = await userUtils.findAllLikesAndDislikes(
           decodedToken["user_id"]
         );
@@ -138,7 +139,9 @@ module.exports = knex => {
     // contains the user_id
     const decodedToken = jwt.verify(token, "secretkey");
     try {
-      const ownPosts = await knex("posts").where("user_id", "=", decodedToken["user_id"]);
+      const ownPosts = await knex("posts")
+        .where("user_id", "=", decodedToken["user_id"])
+        .orderBy("date_posted");
       const allLikesAndDislikes = await userUtils.findAllLikesAndDislikes(decodedToken["user_id"]);
       const profileData = await knex("users").where("id", "=", decodedToken["user_id"]);
       res.json([ownPosts, allLikesAndDislikes, profileData]);
@@ -155,7 +158,8 @@ module.exports = knex => {
       const likedPosts = await knex("posts")
         .join("like_dislike", { "posts.id": "like_dislike.post_id" })
         .where("like_dislike.user_id", "=", decodedToken["user_id"])
-        .andWhere("like_dislike.like_or_dislike", "=", true);
+        .andWhere("like_dislike.like_or_dislike", "=", true)
+        .orderBy("date_posted");
       const allLikesAndDislikes = await userUtils.findAllLikesAndDislikes(decodedToken["user_id"]);
       const profileData = await knex("users").where("id", "=", decodedToken["user_id"]);
       res.json([likedPosts, allLikesAndDislikes, profileData]);

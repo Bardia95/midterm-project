@@ -49,7 +49,7 @@ $(document).ready(function() {
         toggleNav();
         location.reload();
       } else {
-        window.alert(response);
+        window.alert("Invalid Login");
       }
     });
   });

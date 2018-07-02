@@ -38,8 +38,6 @@ $(document).ready(function() {
   $("#signupform").on("submit", function(event) {
     event.preventDefault();
     const formSubmissionData = $(event.target);
-    console.log(formSubmissionData);
-    console.log("asdf");
     const email = formSubmissionData.children("input#emailsignup").val();
     const password = formSubmissionData.children("input#passwordsignup").val();
     const username = formSubmissionData.children("input#usernamesignup").val();

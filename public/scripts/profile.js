@@ -26,7 +26,7 @@ $(document).ready(function() {
       $("main").append('<h1>Liked Posts</h1><section class="posts-container"></section>');
       // result is an array of post objects
       result[0].forEach(post => {
-        $(".posts-container").append(createPostElement(post, result[1]));
+        $(".posts-container").prepend(createPostElement(post, result[1]));
       });
     });
   }
@@ -43,7 +43,7 @@ $(document).ready(function() {
       $("main").append('<h1>Your Posts</h1><section class="posts-container"></section>');
       // result is an array of post objects
       result[0].forEach(post => {
-        $(".posts-container").append(createPostElement(post, result[1]));
+        $(".posts-container").prepend(createPostElement(post, result[1]));
       });
     });
   }

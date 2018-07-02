@@ -8,7 +8,7 @@ module.exports = function(knex) {
         .then(function(result) {
           if (!result || !result[0]) {
             console.log("invalid username");
-            reject("Invalid Username");
+            reject(false);
             return;
           }
           var pass = result[0].password;
@@ -17,7 +17,7 @@ module.exports = function(knex) {
             resolve(result[0]["id"]);
           } else {
             console.log("Wrong Password");
-            reject("Wrong Password");
+            reject(false);
           }
         })
         .catch(function(error) {
