@@ -53,6 +53,7 @@ $(document).ready(function() {
     const postDescription = postObject["description"];
     const postDate = postObject["date_posted"];
     const likeCount = postObject["likes_count"];
+    const externalURL = postObject["url"];
     let liked = "";
     let disliked = "";
     if (typeof arrayOfLikesOrDislikes === "object") {
@@ -66,7 +67,7 @@ $(document).ready(function() {
     }
     return ` <article class='post rendered' data-postid=${postID}>
     <header>
-      <h2>${postTitle}</h1>
+      <h2><a href="${externalURL}">${postTitle}</a></h1>
       <div class="post-description">
         <p>${postDescription}</p>
       </div>
@@ -95,6 +96,7 @@ $(document).ready(function() {
     </aside>
   </article>`;
   }
+
   function createProfileHeader(profileData) {
     const username = profileData[0]["username"];
     const email = profileData[0]["email"];
