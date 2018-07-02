@@ -105,14 +105,16 @@ $(document).ready(function() {
       <button type="button" id="edit-info-button">Change Password</button>
     </div>
     <aside>
-    <div id="editprofile" style="background-color: lightgreen; display: none">
+    <div id="editprofile">
     <form action="/editprofile" method="post">
-      <p>Change your password</p>
-      <label for="password">Old Password</label>
+      <h2>Change your password</h2>
+      <br>
+      <p><strong>Old Password</strong></p>
       <input id="oldpassword" type="password" name="oldpassword" required>
-      <label for="password">New Password</label>
+      <p><strong>New Password</strong></p>
       <input id="newpassword" type="password" name="newpassword" required>
-      <input type="submit" value="submit">
+      <br>
+      <input type="submit" value="submit" class="change-pass-submit">
     </form>
   </div>
   </aside>

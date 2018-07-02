@@ -57,12 +57,11 @@
   </main>
   <section class="new-post" style="display:none;">
     <h2>New Post</h2>
+    <br>
     <form action="/posts" method="POST" class="post-form">
       <input type="text" id="title" placeholder="Title" name="title" required>
       <input id="URL" type="text" placeholder="https://coursera.org/" name="url" required>
-      <br>
-      <strong>Type</strong>
-      <br>
+      <p><strong>Type</strong></p>
       <input type="radio" class="type" name="type" value="tutorial" required> Tutorial
       <br>
       <input type="radio" class="type" name="type" value="interview"> Interview
@@ -74,9 +73,7 @@
       <input type="radio" class="type" name="type" value="course"> Course
       <br>
       <input type="radio" class="type" name="type" value="book"> Book
-      <br>
-      <strong>Subject</strong>
-      <br>
+      <p><strong>Subject</strong></p>
       <input type="radio" class="subject" name="subject" value="web development" required> Web Development
       <br>
       <input type="radio" class="subject" name="subject" value="mobile development"> Mobile Development
@@ -88,17 +85,18 @@
       <input type="radio" class="subject" name="subject" value="virtual reality"> Virtual Reailty
       <br>
       <textarea class="description" placeholder="Description" name="description" required></textarea>
+      <br>
       <input type="submit" value="Submit" class="post-submit">
     </form>
   </section>
 
   <section class="search-form" style="display:none;">
     <h2>Search for a post</h2>
+    <br><br>
     <form action="/search" method="POST">
       <input type="text" id="searchterm" placeholder="Search Term" name="searchterm">
       <br>
-      <strong>Type</strong>
-      <br>
+      <p><strong>Type</strong></p>
       <input type="radio" class="type" name="type" value="none" checked="checked"> None
       <br>
       <input type="radio" class="type" name="type" value="tutorial"> Tutorial
@@ -113,8 +111,7 @@
       <br>
       <input type="radio" class="type" name="type" value="book"> Book
       <br>
-      <strong>Subject</strong>
-      <br>
+      <p><strong>Subject</strong></p>
       <input type="radio" class="subject" name="subject" value="none" checked="checked"> None
       <br>
       <input type="radio" class="subject" name="subject" value="web development"> Web Development
@@ -126,6 +123,7 @@
       <input type="radio" class="subject" name="subject" value="blockchain"> Augmented Reality
       <br>
       <input type="radio" class="subject" name="subject" value="virtual reality"> Virtual Reailty
+      <br>
       <input type="submit" value="Search" class="search-submit">
     </form>
   </section>
@@ -133,22 +131,24 @@
   <div id="loginform" class="modal">
     <h2>Log In</h2>
     <form action="/login" method="post">
-      <label for="username">Username</label>
+      <p><strong>Username</strong></p>
       <input id="username" type="text" name="username" required>
-      <label for="password">Password</label>
+      <p><strong>Password</strong></p>
       <input id="password" type="password" name="password" required>
+      <br>
       <input type="submit" value="Login" class="login-submit">
     </form>
   </div>
   <div id="signupform" class="modal">
     <h2>Sign Up</h2>
     <form action="/register" method="post">
-      <label for="email">E-Mail</label>
+      <p><strong>Email</strong></p>
       <input id="emailsignup" type="email" name="email" required>
-      <label for="username">Username</label>
+      <p><strong>Username</strong></p>
       <input id="usernamesignup" type="text" name="username" required>
-      <label for="password">Password</label>
+      <p><strong>Password</strong></p>
       <input id="passwordsignup" type="password" name="password" required>
+      <br>
       <input type="submit" value="Sign Up" class="signup-submit">
     </form>
   </div>
