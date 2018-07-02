@@ -90,15 +90,51 @@ $(document).ready(function() {
       }).then(function(response) {
         if (response) {
           $("comments").data("");
-          $(".comment-form").find('textarea').val('');
           renderComments(postID, thisDialog);
         } else {
           window.alert("Invalid Comment");
         }
       });
     });
+<<<<<<< HEAD
   };
 
+  $("body").on("submit", ".comment-form", function(event) {
+    console.log("submitting");
+    event.stopImmediatePropagation();
+    event.preventDefault();
+    const formSubmissionData = $(event.target);
+    const content = formSubmissionData.children("textarea").val();
+    const postID = $(this)
+      .parents("article")
+      .data("postid");
+    const thisDialog = $(this).parents("article");
+    if (content === "" || content === " ") {
+      alert("Please input valid comment");
+      return;
+    }
+
+    $.ajax({
+      url: "/post/comment",
+      type: "POST",
+      data: {
+        content: content,
+        post_id: postID
+      }
+    }).then(function(response) {
+      if (response) {
+        $("comments").data("");
+        $(".comment-form").find('textarea').val('');
+        renderComments(postID, thisDialog);
+      } else {
+        window.alert("Invalid Comment");
+      }
+    });
+  });
+  // sets dialog specifications and closes dialog if clicked outside
+=======
+    // sets dialog specifications and closes dialog if clicked outside
+>>>>>>> ad04421d86245d5c45773d4b449b8c99d5481ce7
 
     function renderComments(post_id, dialog) {
       dialog.find(".comments").empty();
