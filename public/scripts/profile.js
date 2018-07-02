@@ -24,8 +24,7 @@ $(document).ready(function() {
     }).then(result => {
       $("main").append(createProfileHeader(result[2]));
       $("main").append('<h1>Liked Posts</h1><section class="posts-container"></section>');
-      console.log(result[1]);
-      // result is an array of post objects
+      // result[0] is an array of post objects
       result[0].forEach(post => {
         $(".posts-container").prepend(createPostElement(post, result[1]));
       });

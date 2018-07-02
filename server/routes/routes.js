@@ -77,7 +77,7 @@ module.exports = knex => {
     const content = req.body.content;
     const postID = req.body.post_id;
     const uId = parseInt(req.session["user_id"]);
-    console.log("wtfwtf")
+    console.log("wtfwtf");
     // const comment_id =
     knex("comments")
       .insert({
@@ -156,8 +156,20 @@ module.exports = knex => {
     // contains the user_id
     const decodedToken = jwt.verify(token, "secretkey");
     try {
-      const likedPosts = await knex("posts")
-        .join("like_dislike", { "posts.id": "like_dislike.post_id" })
+      const likedPosts = await knex
+        .select(
+          "posts.id",
+          "posts.title",
+          "posts.description",
+          "posts.url",
+          "posts.date_posted",
+          "posts.subject",
+          "posts.type",
+          "posts.user_id",
+          "posts.likes_count"
+        )
+        .from("posts")
+        .join("like_dislike", { "like_dislike.post_id": "posts.id" })
         .where("like_dislike.user_id", "=", decodedToken["user_id"])
         .andWhere("like_dislike.like_or_dislike", "=", true)
         .orderBy("date_posted");
