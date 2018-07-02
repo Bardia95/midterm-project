@@ -20,7 +20,10 @@ $(document).ready(function() {
       clickOutsideTrigger: ".rendered"
     });
     dialogClone.dialog(opt).dialog("open");
-    dialogClone.children("aside").css("display", "block");
+    dialogClone.children("aside").css("display", "flex");
+    dialogClone.children("header").css("display", "flex");
+    dialogClone.children("footer").css("display", "none");
+    dialogClone.children(".post-description").css("display", "flex");
     const postID = dialogClone.data("postid");
     renderComments(postID, dialogClone);
 
@@ -57,48 +60,7 @@ $(document).ready(function() {
         }
       });
     });
-    // same code dislikes
-    $("body").on("click", ".fa-chevron-down", function(event) {
-      event.stopPropagation();
-      const $downArrow = $(this);
-      const $upArrow = $(this).siblings("i");
-      const $postID = $(this)
-        .parents("article")
-        .data("postid");
-      $.ajax({
-        url: "/dislike",
-        type: "PUT",
-        data: { post_id: $postID }
-      }).then(response => {
-        // if response is 1, it has never been disliked, if reponse is 2 it was liked before now disliked, if response is 3, it is already disliked
-        if (response === 1) {
-          $upArrow.removeClass("liked");
-          $downArrow.addClass("disliked");
-          var currentLike = parseInt($downArrow.siblings("p").text(), 10);
-          // adds one to the currentlike
-          $downArrow.siblings("p").text(currentLike - 1);
-        } else if (response === 2) {
-          $upArrow.removeClass("liked");
-          $downArrow.addClass("disliked");
-          var currentLike = parseInt($downArrow.siblings("p").text(), 10);
-          // adds one to the currentlike
-          $downArrow.siblings("p").text(currentLike - 2);
-        } else if (response === 3) {
-          console.log("You've already disliked this post");
-        }
-      });
-    });
-  } else {
-    $("body").on("click", ".fa-chevron-up", function(event) {
-      event.stopPropagation();
-      alert("Please Login or Sign Up to like posts! :)");
-    });
-    $("body").on("click", ".fa-chevron-down", function(event) {
-      event.stopPropagation();
-      alert("Please Login or Sign Up to dislike posts! :)");
-    });
-  }
-  });
+  };
 
   $("body").on("submit", ".comment-form", function(event) {
     event.preventDefault();

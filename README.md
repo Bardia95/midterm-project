@@ -1,14 +1,6 @@
-# Node Skeleton
+# DevStash
 
-## Project Setup
-
-1. Create your own empty repo on GitHub
-2. Clone this repository (do not fork)
-  - Suggestion: When cloning, specify a different folder name that is relevant to your project
-3. Remove the git remote: `git remote rm origin`
-4. Add a remote for your origin: `git remote add origin <your github repo URL>`
-5. Push to the new origin: `git push -u origin master`
-6. Verify that the skeleton code now shows up in your repo on GitHub
+Pinterest for Developers who love to learn
 
 ## Getting Started
 
@@ -27,3 +19,27 @@
 
 - Node 5.10.x or above
 - NPM 3.8.x or above
+- BCrypt 2.4.3 or above
+- Body-parser 1.15.2 or above
+- Cookie-session 2.0.0 or above
+- Dotenv 2.0.0 or above
+- EJS 2.4.1 or above
+- Express 4.13.4 or above
+- JsonWebToken 8.3.0 or above
+- Knex 0.11.7 or above
+- Knex-logger 0.1.0 or above
+- Moment 2.22.2 or above
+- Morgan 1.7.0 or above
+- Node-Sass-Middleware 0.9.8 or above
+- Path 0.12.7 or above
+- PG 6.0.2 or above
+
+
+## Screenshots
+
+# Home Page
+
+# Login Form
+
+
+
