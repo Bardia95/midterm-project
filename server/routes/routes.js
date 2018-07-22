@@ -44,7 +44,6 @@ module.exports = knex => {
         jwt.sign({ user_id: result }, "secretkey", (err, token) => {
           // sends the token
           res.cookie("token", token);
-
           res.send(true);
         });
       })
@@ -61,7 +60,6 @@ module.exports = knex => {
     const description = req.body.description;
     const date = moment(parseInt(req.body.date)).format("l");
     const uId = parseInt(req.session["user_id"]);
-
     userUtils
       .newPost(type, url, title, subject, description, date, uId)
       .then(result => {
@@ -78,7 +76,6 @@ module.exports = knex => {
     const postID = req.body.post_id;
     const uId = parseInt(req.session["user_id"]);
     console.log("wtfwtf");
-    // const comment_id =
     knex("comments")
       .insert({
         text: content,
@@ -101,13 +98,12 @@ module.exports = knex => {
     });
   });
 
-  // route to log out
   router.post("/logout", (req, res) => {
     req.session = null;
     res.clearCookie("token");
     res.send();
   });
-  // route to render posts
+
   router.get("/render", async (req, res) => {
     // if user isnt logged in just render all posts
     if (req.headers["cookie"] === undefined) {
@@ -344,26 +340,11 @@ module.exports = knex => {
       res.json(null);
     }
   });
-
-  // Rob's query code for posts by diff users
-  // let query= knex('posts');
-  // if (req.query.user_id) {
-  //   query = query.whereIn('user_id', req.query.user_id)
-  // }
-  // const allPosts = await query
-
-  // res.json(allPosts);
-
   return router;
-  // FUNCTIONS
 
   function getTokenFromCookie(stringOfCookies) {
-    // split at spaces
     let tokenString = stringOfCookies.split(" ")[0];
-
-    // remove token= and ; from beginning and end
     tokenString = tokenString.substring(6, tokenString.length - 1);
     return tokenString;
   }
-  // FUNCTIONS
 };

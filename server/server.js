@@ -39,8 +39,6 @@ app.use(knexLogger(knex));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-console.log(path.join(__dirname, "../styles"));
-console.log(path.join(__dirname, "../public"));
 app.use(
   sassMiddleware({
     src: path.join(__dirname, "../styles"),
